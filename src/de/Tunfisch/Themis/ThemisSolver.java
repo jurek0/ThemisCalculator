@@ -21,7 +21,7 @@ public class ThemisSolver {
 	//Calculation-method (visible by other classes)
 	public void calculate(String toSolve){
 		int ctr = 0;
-		String[] parts = new String[toSolve.length()*2];
+		String[] parts = new String[toSolve.length()+2];
 		
 		//ADDING BRACKETS TO PROVE BETTER FUNCTION	
 		toSolve = "(" + toSolve;
@@ -71,7 +71,6 @@ public class ThemisSolver {
 		private void search(String[] parts){
 		
 			int openingBracket, closingBracket;
-			String specialIntstruction = "nothing";
 			String tempSubOperation = "";
 			
 		for (int i = 0; i < parts.length; i++) {
@@ -99,16 +98,9 @@ public class ThemisSolver {
 									ctr2++;
 								}
 								
-								//if there is sin, cos, tn or so, remember it
-								if (parts[j-1].equals("rad")){specialIntstruction = "rad";}
-								if (parts[j-1].equals("sin")){specialIntstruction = "sin";}
-								if (parts[j-1].equals("cos")){specialIntstruction = "cos";}
-								if (parts[j-1].equals("tan")){specialIntstruction = "tan";}
-								if (parts[j-1].equals("ln")) {specialIntstruction = "ln" ;}
-								if (parts[j-1].equals("pow")){specialIntstruction = "pow";}
-								System.out.println("Spezielle Operation: "+specialIntstruction);
 								System.out.println("TSO: " + tempSubOperation);
 								thcal.calculateSubOP(tempSubOperation);
+								
 								break;
 								
 							}

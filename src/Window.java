@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import de.Tunfisch.Themis.ThemisSolver;
+import de.Tunfisch.Themis2.ThemisSolver;
 
 public class Window {
 
@@ -44,7 +44,6 @@ public class Window {
 	
 	//Calculator
 	Calculator Calculation = new Calculator();
-	largeCalculationHandler LCHandler = new largeCalculationHandler();
 	longChain longCalc = new longChain();
 	ThemisSolver themis = new ThemisSolver();
 	
