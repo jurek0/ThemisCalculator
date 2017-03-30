@@ -42,7 +42,7 @@ public class Window {
 	//Buttons
 	public JButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn0;							//CHECK
 	public JButton btnMultiply, btnDivide, btnPlus, btnMinus, btnNegate, btnComma, btnPercentage; 		//CHECK
-	public JButton btnLN, btnLOG, btnPOW, btnSIN, btnCOS, btnTAN, btnE, btnPI, btnSQRT, btnCBRT;  		//CHECK
+	public JButton btnLN, btnLOG, btnPOW, btnSIN, btnCOS, btnTAN, btnE, btnPI, btnSQRT, btnCBRT, btnFaculty;  		//CHECK
 	public JButton btnBracketOpen, btnBracketClose;                                    					//CHECK
 	public JButton btnBackspace, btnClearAll, btnShutdown, btnEnter, btnANS;							//TOP DIE WETTE GILT
 		
@@ -95,7 +95,7 @@ public class Window {
 		
 		//Version-Label
 		lblVersion = new JLabel(versionnumber);
-		lblVersion.setBounds(10, 640, 470, 40);
+		lblVersion.setBounds(10, 630, 470, 40);
 		
 		//Buttons---------------------------------------------------------------------------------------------------------
 		//BTN_SEVEN
@@ -266,6 +266,7 @@ public class Window {
 			public void actionPerformed(ActionEvent e) {
 			
 			themis.calculate(tfInput.getText(), isDegree);
+			tfResult.setText(themis.getResult());
 			frame.requestFocus();
 			}	
 		});
@@ -280,9 +281,18 @@ public class Window {
 			}
 		});
 		
+		//BTN_FACULTY
+		btnFaculty = new JButton("!");
+		btnFaculty.setBounds(300, 330, 45, 45);
+		btnFaculty.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			tfInput.setText(tfInput.getText()+"!(");
+			}	
+		});
 		//BTN_NATURAL_LOG
 		btnLN = new JButton("ln");
-		btnLN.setBounds(300, 330, 45, 45);
+		btnLN.setBounds(300, 380, 45, 45);
 		btnLN.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -291,8 +301,8 @@ public class Window {
 		});
 		
 		//BTN_LOG
-		btnLOG = new JButton("lg");
-		btnLOG.setBounds(300, 380, 45, 45);
+		btnLOG = new JButton("log10");
+		btnLOG.setBounds(350, 380, 65, 45);
 		btnLOG.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -617,6 +627,7 @@ public class Window {
 		frame.add(btnClearAll);
 		frame.add(btnPercentage);
 		frame.add(btnShutdown);
+		frame.add(btnFaculty);
 		
 	}
 	

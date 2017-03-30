@@ -7,6 +7,7 @@ public class ThemisSolver {
 	LinkedList<String> inputll= new LinkedList<>(); 
 	String[] tempInput;
 	boolean isDegree;
+	String finalResult;
 	
 	public void calculate(String toSolve, boolean isDegree){
 				
@@ -20,6 +21,7 @@ public class ThemisSolver {
 				toSolve = toSolve.replace("sqrt(", " sqrt ");
 				toSolve = toSolve.replace("cbrt(", " cbrt ");
 				toSolve = toSolve.replace("^(", " pow ");
+				toSolve = toSolve.replace("!(", " fac ");
 				toSolve = toSolve.replace("sin(", " sin ");
 				toSolve = toSolve.replace("cos(", " cos ");
 				toSolve = toSolve.replace("tan(", " tan ");
@@ -51,7 +53,8 @@ public class ThemisSolver {
 					//Möglichkeit 1: Liste Enthält noch Operatoren
 					if(inputll.contains("mul") || inputll.contains("div") || inputll.contains("sub") || inputll.contains("add") || inputll.contains("pow")
 							|| inputll.contains("prc") || inputll.contains("sqrt") || inputll.contains("cbrt") 
-							|| inputll.contains("ln") || inputll.contains("log")){
+							|| inputll.contains("ln") || inputll.contains("log") || inputll.contains("sin")
+							|| inputll.contains("cos") || inputll.contains("tan") || inputll.contains("fac")){
 						for (int i = 0; i < inputll.size(); i++) {
 							System.out.println("Aktuelles Objekt: "+inputll.get(i));
 							inputll = getCalc(inputll, i, isDegree);
@@ -65,13 +68,11 @@ public class ThemisSolver {
 				}
 				
 				System.out.println("Liste als String am Ende: "+inputll.toString());
+				finalResult = inputll.toString();
+				finalResult = finalResult.substring(1, finalResult.length()-1);
 				
 				//Ende der Operation
 				inputll.clear();
-				
-				
-		
-
 	}
 	
 	 LinkedList<String> getCalc(LinkedList<String> inputll, int i, boolean isDegree){
@@ -262,7 +263,7 @@ public class ThemisSolver {
 			return inputll;
 			} else {}
 		
-		//SQUAREROOT
+		//CUBICROOT
 		if (inputll.get(i).equals("cbrt")) {
 			double tempIN2 = 0;
 			double tempOUT = 0;
@@ -286,10 +287,109 @@ public class ThemisSolver {
 			return inputll;
 			} else {}
 		
+		//SINUS
+		if (inputll.get(i).equals("sin")) {
+			double tempIN2 = 0;
+			double tempOUT = 0;
+			System.out.println("------------------------");
+			System.out.println("Aktuelles Objekt: " + inputll.get(i));
+			System.out.println("eins drüber: " + inputll.get(i+1));
+			System.out.println("------------------------");
+			
+			tempIN2 = Double.parseDouble(inputll.get(i+1));
+			
+			tempOUT = Math.sin(tempIN2);
+			
+			System.out.println("Ergebnis: " + tempOUT);
+			
+			System.out.println("I: "+i);
+			System.out.println(inputll.toString());
+			inputll.set(i, Double.toString(tempOUT));
+			System.out.println(inputll.toString());
+			inputll.remove(i+1);
+			System.out.println(inputll.toString());
+			return inputll;
+			} else {}
+		
+		//COSINUS
+		if (inputll.get(i).equals("cos")) {
+			double tempIN2 = 0;
+			double tempOUT = 0;
+			System.out.println("------------------------");
+			System.out.println("Aktuelles Objekt: " + inputll.get(i));
+			System.out.println("eins drüber: " + inputll.get(i+1));
+			System.out.println("------------------------");
+			
+			tempIN2 = Double.parseDouble(inputll.get(i+1));
+			
+			tempOUT = Math.cos(tempIN2);
+			
+			System.out.println("Ergebnis: " + tempOUT);
+			
+			System.out.println("I: "+i);
+			System.out.println(inputll.toString());
+			inputll.set(i, Double.toString(tempOUT));
+			System.out.println(inputll.toString());
+			inputll.remove(i+1);
+			System.out.println(inputll.toString());
+			return inputll;
+			} else {}
+		
+		//TANGENS
+		if (inputll.get(i).equals("tan")) {
+			double tempIN2 = 0;
+			double tempOUT = 0;
+			System.out.println("------------------------");
+			System.out.println("Aktuelles Objekt: " + inputll.get(i));
+			System.out.println("eins drüber: " + inputll.get(i+1));
+			System.out.println("------------------------");
+			
+			tempIN2 = Double.parseDouble(inputll.get(i+1));
+			
+			tempOUT = Math.tan(tempIN2);
+			
+			System.out.println("Ergebnis: " + tempOUT);
+			
+			System.out.println("I: "+i);
+			System.out.println(inputll.toString());
+			inputll.set(i, Double.toString(tempOUT));
+			System.out.println(inputll.toString());
+			inputll.remove(i+1);
+			System.out.println(inputll.toString());
+			return inputll;
+			} else {}
+		
+		//FACULTY
+		if (inputll.get(i).equals("fac")) {
+			double tempIN2 = 0;
+			double tempOUT = 1;
+			System.out.println("------------------------");
+			System.out.println("Aktuelles Objekt: " + inputll.get(i));
+			System.out.println("eins drüber: " + inputll.get(i+1));
+			System.out.println("------------------------");
+			
+			tempIN2 = Double.parseDouble(inputll.get(i+1));
+			
+			for (int j = 1; j < tempIN2; j++) {
+				tempOUT = tempOUT*j;
+			}
+			
+			System.out.println("Ergebnis: " + tempOUT);
+			
+			System.out.println("I: "+i);
+			System.out.println(inputll.toString());
+			inputll.set(i, Double.toString(tempOUT));
+			System.out.println(inputll.toString());
+			inputll.remove(i+1);
+			System.out.println(inputll.toString());
+			return inputll;
+			} else {}
+		
 		//ADDITION
 		if (inputll.get(i).equals("add") && !(inputll.contains("mul") ||inputll.contains("div") || inputll.contains("pow")
 				|| inputll.contains("prc") || inputll.contains("sqrt") || inputll.contains("cbrt") || inputll.contains("ln") 
-				|| inputll.contains("log"))) {
+				|| inputll.contains("log")  || inputll.contains("sin") || inputll.contains("cos") || inputll.contains("tan")
+				|| inputll.contains("fac"))) {
 			double tempIN1 = 0;
 			double tempIN2 = 0;
 			double tempOUT = 0;
@@ -320,7 +420,8 @@ public class ThemisSolver {
 		//SUBTRACTION
 		if (inputll.get(i).equals("sub") && !(inputll.contains("mul") ||inputll.contains("div") || inputll.contains("pow")
 				|| inputll.contains("prc") || inputll.contains("sqrt") || inputll.contains("cbrt") || inputll.contains("ln") 
-				|| inputll.contains("log"))) {
+				|| inputll.contains("log")  || inputll.contains("sin") || inputll.contains("cos") || inputll.contains("tan")
+				|| inputll.contains("fac"))) {
 			double tempIN1 = 0;
 			double tempIN2 = 0;
 			double tempOUT = 0;
@@ -355,7 +456,7 @@ public class ThemisSolver {
 	}
 	 
 	 public String getResult(){
-		 return "Ergebnis";
+		 return finalResult;
 	 }
 	
 }
