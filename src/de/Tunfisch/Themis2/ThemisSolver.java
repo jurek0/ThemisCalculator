@@ -5,14 +5,10 @@ import java.util.LinkedList;
 public class ThemisSolver {
 
 	LinkedList<String> inputll= new LinkedList<>(); 
-	
 	String[] tempInput;
+	boolean isDegree;
 	
-	public void calculate(String toSolve){
-		
-		//ADDING BRACKETS TO PROVE BETTER FUNCTION	
-				//toSolve = "(" + toSolve;
-				//toSolve = toSolve + ")";
+	public void calculate(String toSolve, boolean isDegree){
 				
 				 //REPLACE
 				toSolve = toSolve.replace(",", ".");
@@ -58,7 +54,7 @@ public class ThemisSolver {
 							|| inputll.contains("ln") || inputll.contains("log")){
 						for (int i = 0; i < inputll.size(); i++) {
 							System.out.println("Aktuelles Objekt: "+inputll.get(i));
-							inputll = getCalc(inputll, i);
+							inputll = getCalc(inputll, i, isDegree);
 						}
 						j--;
 						//Andere Möglichkeit: Liste enthält keine Operatoren mehr
@@ -78,7 +74,7 @@ public class ThemisSolver {
 
 	}
 	
-	 LinkedList<String> getCalc(LinkedList<String> inputll, int i){
+	 LinkedList<String> getCalc(LinkedList<String> inputll, int i, boolean isDegree){
 			
 		//MULTIPLICATION
 		if (inputll.get(i).equals("mul")) {

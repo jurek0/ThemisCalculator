@@ -264,9 +264,8 @@ public class Window {
 		btnEnter.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			//Calculation.basicCalculation(tfInput.getText());
-			//tfResult.setText(Calculation.getTextResult());
-			themis.calculate(tfInput.getText());
+			
+			themis.calculate(tfInput.getText(), isDegree);
 			frame.requestFocus();
 			}	
 		});
@@ -557,7 +556,7 @@ public class Window {
 					longCalc.addToChain("*");
 				}
 				if(e.getKeyCode() == KeyEvent.VK_SPACE){
-					themis.calculate(tfInput.getText());
+					themis.calculate(tfInput.getText(), isDegree);
 				}
 			}
 		});
@@ -621,14 +620,15 @@ public class Window {
 		
 	}
 	
-	void RadioButtons(){
+	public void RadioButtons(){
 		JLabel askForCircleType = new JLabel("Radialmaﬂ oder Gradmaﬂ");
 		
-		JRadioButton radian = new JRadioButton("Radial");
+		JRadioButton radian = new JRadioButton("Radial", true);
 		JRadioButton degree = new JRadioButton("Grad");
 		
 		radian.setBounds(100, 480, 100, 30);
 		degree.setBounds(100, 505, 100, 30);
+		
 		
 		ButtonGroup group = new ButtonGroup();
 		group.add(degree);
@@ -637,6 +637,11 @@ public class Window {
 		frame.add(askForCircleType);
 		frame.add(degree);
 		frame.add(radian);
+		
+		if (degree.isSelected() == true) {
+			isDegree = true;
+		}
+		
 	}
 	
 }
