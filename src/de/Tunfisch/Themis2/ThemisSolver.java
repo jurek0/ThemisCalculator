@@ -4,13 +4,22 @@ import java.util.LinkedList;
 
 public class ThemisSolver {
 
+	//The funny LinkedList which is used to solve the Calculation
 	LinkedList<String> inputll= new LinkedList<>(); 
+	
+	//Temporary intput as the name says
 	String[] tempInput;
+	
+	//Result as string
+	String finalResult;
+	
+	//Is the type of angle Calculation degree?
 	boolean isDegree;
 	
+	//The Calculate-method, use this in your program. Needs a String to solve and a boolean isDegree
 	public void calculate(String toSolve, boolean isDegree){
 				
-				 //REPLACE
+				//REPLACE operators with others, adding spaces. Needed for later Splitting up
 				toSolve = toSolve.replace(",", ".");
 				toSolve = toSolve.replace("+", " add ");
 				toSolve = toSolve.replace("-", " sub ");
@@ -31,27 +40,35 @@ public class ThemisSolver {
 				toSolve = toSolve.replace("(", " ( ");
 				toSolve = toSolve.replace(")", " ) ");
 				
+				//If there are two spaces, remove one
 				toSolve = toSolve.replace("  ", " ");
+				
+				//If String starts or ends with a space, remove it
 				if (toSolve.startsWith(" ")) {
 					toSolve = toSolve.substring(1, toSolve.length());
 				}
 				if (toSolve.endsWith(" ")) {
 					toSolve = toSolve.substring(0, toSolve.length()-1);
 				}
+				
+				//Split the String at the spaces and paste it into the Array tempinput
 				tempInput = toSolve.split(" ");
 				
+				//Takes the elements in the array and put them into the Linked List to edit later
 				for (int i = 0; i < tempInput.length; i++) {
 					inputll.add(tempInput[i]);
 					}
 				
 				System.out.println("Ganze List als String: "+inputll.toString());
 				
+				//Loop
 				for (int j = 0; j < 2; j++) {
 					
 					//Möglichkeit 1: Liste Enthält noch Operatoren
 					if(inputll.contains("mul") || inputll.contains("div") || inputll.contains("sub") || inputll.contains("add") || inputll.contains("pow")
 							|| inputll.contains("prc") || inputll.contains("sqrt") || inputll.contains("cbrt") 
 							|| inputll.contains("ln") || inputll.contains("log")){
+						//Loop 2, calls getCalc method to reduce the given List to the result
 						for (int i = 0; i < inputll.size(); i++) {
 							System.out.println("Aktuelles Objekt: "+inputll.get(i));
 							inputll = getCalc(inputll, i, isDegree);
@@ -65,8 +82,10 @@ public class ThemisSolver {
 				}
 				
 				System.out.println("Liste als String am Ende: "+inputll.toString());
+				finalResult = inputll.toString();
+				finalResult = finalResult.substring(1, finalResult.length()-1);
 				
-				//Ende der Operation
+				//End of operation, clear the List that it is ready for next use
 				inputll.clear();
 				
 				
@@ -74,6 +93,7 @@ public class ThemisSolver {
 
 	}
 	
+	//Method which calculates and respects point for line
 	 LinkedList<String> getCalc(LinkedList<String> inputll, int i, boolean isDegree){
 			
 		//MULTIPLICATION
@@ -354,8 +374,9 @@ public class ThemisSolver {
 		
 	}
 	 
+	 //Returns the result as a string
 	 public String getResult(){
-		 return "Ergebnis";
+		 return finalResult;
 	 }
 	
 }
