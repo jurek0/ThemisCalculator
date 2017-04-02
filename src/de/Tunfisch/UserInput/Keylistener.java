@@ -29,6 +29,7 @@ public class Keylistener {
 					tfResult.setText(themis.getResult());
 					frame.requestFocus();
 					}
+				//THE STANDARD-LAYOUT-KEYS 
 				if(e.getKeyCode() == KeyEvent.VK_0){
 					tfInput.setText(tfInput.getText()+"0");
 				}
@@ -62,6 +63,7 @@ public class Keylistener {
 				if(e.getKeyCode() == KeyEvent.VK_E){
 					tfInput.setText(tfInput.getText()+"e");
 				}
+				
 				if(e.getKeyCode() == KeyEvent.VK_DELETE){
 					tfInput.setText("");
 					tfResult.setText("");
@@ -78,6 +80,50 @@ public class Keylistener {
 				}
 				if(e.getKeyCode() == KeyEvent.VK_MINUS){
 					tfInput.setText(tfInput.getText()+"-");
+				}
+				
+				//THE NUMBLOCK-KEYS
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD0){
+					tfInput.setText(tfInput.getText()+"0");
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD1){
+					tfInput.setText(tfInput.getText()+"1");
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD2){
+					tfInput.setText(tfInput.getText()+"2");
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD3){
+					tfInput.setText(tfInput.getText()+"3");
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD4){
+					tfInput.setText(tfInput.getText()+"4");
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD5){
+					tfInput.setText(tfInput.getText()+"5");
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD6){
+					tfInput.setText(tfInput.getText()+"6");
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD7){
+					tfInput.setText(tfInput.getText()+"7");
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD8){
+					tfInput.setText(tfInput.getText()+"8");
+				}
+				if(e.getKeyCode() == KeyEvent.VK_NUMPAD9){
+					tfInput.setText(tfInput.getText()+"9");
+				}
+				if(e.getKeyCode() == KeyEvent.VK_DIVIDE){
+					tfInput.setText(tfInput.getText()+"/");
+				}
+				if(e.getKeyCode() == KeyEvent.VK_MULTIPLY){
+					tfInput.setText(tfInput.getText()+"*");
+				}
+				if(e.getKeyCode() == KeyEvent.VK_SUBTRACT){
+					tfInput.setText(tfInput.getText()+"-");
+				}
+				if(e.getKeyCode() == KeyEvent.VK_ADD){
+					tfInput.setText(tfInput.getText()+"+");
 				}
 			}
 		});

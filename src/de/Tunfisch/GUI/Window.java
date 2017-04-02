@@ -62,7 +62,7 @@ public class Window {
 		window.frame.setVisible(true);
 	}	
 	public Window(){
-		initialize("DE-290317-beta, with THEMIS BY IGOR DAS TUNFISCH");
+		initialize("1.3-DE, DEBUG-EDITION");
 		numberbtns.addNumberButtons(frame, tfInput);
 		opbtns.addOperatorButtons(frame, tfInput);
 		mathbtns.addMathButtons(frame, tfInput);
@@ -74,7 +74,7 @@ public class Window {
 	public void initialize(String versionnumber) {	
 		
 		//Frame
-		frame = new JFrame("Taschenrechner " + versionnumber );
+		frame = new JFrame("THEMISCALCULATOR " + versionnumber );
 		frame.setBounds(0, 0, 500, 700);
 		frame.setResizable(false);
 		frame.setFocusable(true);
