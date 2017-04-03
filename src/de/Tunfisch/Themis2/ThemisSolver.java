@@ -2,16 +2,31 @@ package de.Tunfisch.Themis2;
 
 import java.util.LinkedList;
 
+import com.sun.corba.se.spi.orbutil.fsm.Input;
+
 public class ThemisSolver {
 
-	LinkedList<String> inputll= new LinkedList<>(); 
-	String[] tempInput;
-	boolean isDegree;
-	String finalResult;
 	
+	//Accessing the Calculator
+	ThemisCalculator themisCalc = new ThemisCalculator();
+	
+	//The funny LinkedList which is used to solve the Calculation
+	LinkedList<String> inputll = new LinkedList<>(); 
+	
+	
+	//Temporary intput as the name says
+	String[] tempInput;
+	
+	//Result as string
+	String finalResult = "";
+	
+	//Is the type of angle Calculation degree?
+	boolean isDegree;
+	
+	//The Calculate-method, use this in your program. Needs a String to solve and a boolean isDegree
 	public void calculate(String toSolve, boolean isDegree){
 				
-				 //REPLACE
+				//REPLACE operators with others, adding spaces. Needed for later Splitting up
 				toSolve = toSolve.replace(",", ".");
 				toSolve = toSolve.replace("+", " add ");
 				toSolve = toSolve.replace("-", " sub ");
@@ -21,7 +36,6 @@ public class ThemisSolver {
 				toSolve = toSolve.replace("sqrt(", " sqrt ");
 				toSolve = toSolve.replace("cbrt(", " cbrt ");
 				toSolve = toSolve.replace("^(", " pow ");
-				toSolve = toSolve.replace("!(", " fac ");
 				toSolve = toSolve.replace("sin(", " sin ");
 				toSolve = toSolve.replace("cos(", " cos ");
 				toSolve = toSolve.replace("tan(", " tan ");
@@ -33,428 +47,73 @@ public class ThemisSolver {
 				toSolve = toSolve.replace("(", " ( ");
 				toSolve = toSolve.replace(")", " ) ");
 				
+				//If there are two spaces, remove one
 				toSolve = toSolve.replace("  ", " ");
+				
+				//If String starts or ends with a space, remove it
 				if (toSolve.startsWith(" ")) {
 					toSolve = toSolve.substring(1, toSolve.length());
 				}
 				if (toSolve.endsWith(" ")) {
 					toSolve = toSolve.substring(0, toSolve.length()-1);
 				}
+				
+				//Split the String at the spaces and paste it into the Array tempinput
 				tempInput = toSolve.split(" ");
 				
+				//Takes the elements in the array and put them into the Linked List to edit later
 				for (int i = 0; i < tempInput.length; i++) {
 					inputll.add(tempInput[i]);
 					}
 				
 				System.out.println("Ganze List als String: "+inputll.toString());
+
 				
+				//Loop
 				for (int j = 0; j < 2; j++) {
 					
-					//Möglichkeit 1: Liste Enthält noch Operatoren
-					if(inputll.contains("mul") || inputll.contains("div") || inputll.contains("sub") || inputll.contains("add") || inputll.contains("pow")
-							|| inputll.contains("prc") || inputll.contains("sqrt") || inputll.contains("cbrt") 
-							|| inputll.contains("ln") || inputll.contains("log") || inputll.contains("sin")
-							|| inputll.contains("cos") || inputll.contains("tan") || inputll.contains("fac")){
-						for (int i = 0; i < inputll.size(); i++) {
-							System.out.println("Aktuelles Objekt: "+inputll.get(i));
-							inputll = getCalc(inputll, i, isDegree);
-						}
-						j--;
-						//Andere Möglichkeit: Liste enthält keine Operatoren mehr
-					} else {
-						j = 2;
-						System.out.println("Finales Ergebnis: " + inputll.toString());
+					//Option 1: List contains parantheses
+					if (inputll.contains(")") || inputll.contains("(")) {
+						
+						//Some vars and so
+						String betweenPars;
+						String[] betweenParsTemp;
+						LinkedList<String> ParInputll = new LinkedList<>();
+						int closingPar = 0;
+						int openingPar = 0;
+						
+						betweenPars = inputll.toString();
+						System.out.println("Zwischen Klammern: "+betweenPars);
+						
+						//String in Array verwandeln, dann innerste klammer seperieren und in List umwandeln, List ausrechnen, ergebnis einsetzen
+						betweenPars = betweenPars.replace(",", "");
+						betweenPars = betweenPars.replace("[", "");
+						betweenPars = betweenPars.replace("]", "");
+						System.out.println(betweenPars);
+						betweenParsTemp = betweenPars.split(" ");
+						
+						//No put this in the class called ThemisParenthesesExtractor
+						
+					} else { //Option 2: List doesnt contains parantheses (anymore)
+
 					}
+					
 				}
 				
 				System.out.println("Liste als String am Ende: "+inputll.toString());
 				finalResult = inputll.toString();
 				finalResult = finalResult.substring(1, finalResult.length()-1);
 				
-				//Ende der Operation
+				//End of operation, clear the List that it is ready for next use
 				inputll.clear();
-	}
-	
-	 LinkedList<String> getCalc(LinkedList<String> inputll, int i, boolean isDegree){
-			
-		//MULTIPLICATION
-		if (inputll.get(i).equals("mul")) {
-			double tempIN1 = 0;
-			double tempIN2 = 0;
-			double tempOUT = 0;
-			System.out.println("------------------------");
-			System.out.println("eins drunter: " + inputll.get(i-1));
-			System.out.println("Aktuelles Objekt: " + inputll.get(i));
-			System.out.println("eins drüber: " + inputll.get(i+1));
-			System.out.println("------------------------");
-			
-			tempIN1 = Double.parseDouble(inputll.get(i-1));
-			tempIN2 = Double.parseDouble(inputll.get(i+1));
-			
-			tempOUT = tempIN1 * tempIN2;
-			
-			System.out.println("Ergebnis: " + tempOUT);
-			
-			System.out.println("I: "+i);
-			System.out.println(inputll.toString());
-			inputll.set(i, Double.toString(tempOUT));
-			System.out.println(inputll.toString());
-			inputll.remove(i+1);
-			System.out.println(inputll.toString());
-			inputll.remove(i-1);
-			System.out.println(inputll.toString());
-			return inputll;
-			} else {}
-		
-		//DIVISION
-		if (inputll.get(i).equals("div")) {
-			double tempIN1 = 0;
-			double tempIN2 = 0;
-			double tempOUT = 0;
-			System.out.println("------------------------");
-			System.out.println("eins drunter: " + inputll.get(i-1));
-			System.out.println("Aktuelles Objekt: " + inputll.get(i));
-			System.out.println("eins drüber: " + inputll.get(i+1));
-			System.out.println("------------------------");
-			
-			tempIN1 = Double.parseDouble(inputll.get(i-1));
-			tempIN2 = Double.parseDouble(inputll.get(i+1));
-			
-			tempOUT = tempIN1 / tempIN2;
-			
-			System.out.println("Ergebnis: " + tempOUT);
-			
-			System.out.println("I: "+i);
-			System.out.println(inputll.toString());
-			inputll.set(i, Double.toString(tempOUT));
-			System.out.println(inputll.toString());
-			inputll.remove(i+1);
-			System.out.println(inputll.toString());
-			inputll.remove(i-1);
-			System.out.println(inputll.toString());
-			return inputll;
-			} else {}
-		//POWER
-		if (inputll.get(i).equals("pow")) {
-			double tempIN1 = 0;
-			double tempIN2 = 0;
-			double tempOUT = 0;
-			System.out.println("------------------------");
-			System.out.println("eins drunter: " + inputll.get(i-1));
-			System.out.println("Aktuelles Objekt: " + inputll.get(i));
-			System.out.println("eins drüber: " + inputll.get(i+1));
-			System.out.println("------------------------");
-			
-			tempIN1 = Double.parseDouble(inputll.get(i-1));
-			tempIN2 = Double.parseDouble(inputll.get(i+1));
-			
-			tempOUT = Math.pow(tempIN1, tempIN2);
-			
-			System.out.println("Ergebnis: " + tempOUT);
-			
-			System.out.println("I: "+i);
-			System.out.println(inputll.toString());
-			inputll.set(i, Double.toString(tempOUT));
-			System.out.println(inputll.toString());
-			inputll.remove(i+1);
-			System.out.println(inputll.toString());
-			inputll.remove(i-1);
-			System.out.println(inputll.toString());
-			return inputll;
-			} else {}
-		//PERCENTAGE
-		if (inputll.get(i).equals("prc")) {
-			double tempIN1 = 0;
-			double tempIN2 = 0;
-			double tempOUT = 0;
-			System.out.println("------------------------");
-			System.out.println("eins drunter: " + inputll.get(i-1));
-			System.out.println("Aktuelles Objekt: " + inputll.get(i));
-			System.out.println("eins drüber: " + inputll.get(i+1));
-			System.out.println("------------------------");
-			
-			tempIN1 = Double.parseDouble(inputll.get(i-1));
-			tempIN2 = Double.parseDouble(inputll.get(i+1));
-			
-			tempOUT = (tempIN2/100)*tempIN1;
-			
-			System.out.println("Ergebnis: " + tempOUT);
-			
-			System.out.println("I: "+i);
-			System.out.println(inputll.toString());
-			inputll.set(i, Double.toString(tempOUT));
-			System.out.println(inputll.toString());
-			inputll.remove(i+1);
-			System.out.println(inputll.toString());
-			inputll.remove(i-1);
-			System.out.println(inputll.toString());
-			return inputll;
-			} else {}
-		
-		//NATURAL LOGARITHM
-		if (inputll.get(i).equals("ln")) {
-			double tempIN2 = 0;
-			double tempOUT = 0;
-			System.out.println("------------------------");
-			System.out.println("Aktuelles Objekt: " + inputll.get(i));
-			System.out.println("eins drüber: " + inputll.get(i+1));
-			System.out.println("------------------------");
-			
-			tempIN2 = Double.parseDouble(inputll.get(i+1));
-			
-			tempOUT = Math.log(tempIN2);
-			
-			System.out.println("Ergebnis: " + tempOUT);
-			
-			System.out.println("I: "+i);
-			System.out.println(inputll.toString());
-			inputll.set(i, Double.toString(tempOUT));
-			System.out.println(inputll.toString());
-			inputll.remove(i+1);
-			System.out.println(inputll.toString());
-			return inputll;
-			} else {}
-		
-		//10 LOGARITHM
-		if (inputll.get(i).equals("log")) {
-			double tempIN2 = 0;
-			double tempOUT = 0;
-			System.out.println("------------------------");
-			System.out.println("Aktuelles Objekt: " + inputll.get(i));
-			System.out.println("eins drüber: " + inputll.get(i+1));
-			System.out.println("------------------------");
-			
-			tempIN2 = Double.parseDouble(inputll.get(i+1));
-			
-			tempOUT = Math.log10(tempIN2);
-			
-			System.out.println("Ergebnis: " + tempOUT);
-			
-			System.out.println("I: "+i);
-			System.out.println(inputll.toString());
-			inputll.set(i, Double.toString(tempOUT));
-			System.out.println(inputll.toString());
-			inputll.remove(i+1);
-			System.out.println(inputll.toString());
-			return inputll;
-			} else {}
-		
-		//SQUAREROOT
-		if (inputll.get(i).equals("sqrt")) {
-			double tempIN2 = 0;
-			double tempOUT = 0;
-			System.out.println("------------------------");
-			System.out.println("Aktuelles Objekt: " + inputll.get(i));
-			System.out.println("eins drüber: " + inputll.get(i+1));
-			System.out.println("------------------------");
-			
-			tempIN2 = Double.parseDouble(inputll.get(i+1));
-			
-			tempOUT = Math.sqrt(tempIN2);
-			
-			System.out.println("Ergebnis: " + tempOUT);
-			
-			System.out.println("I: "+i);
-			System.out.println(inputll.toString());
-			inputll.set(i, Double.toString(tempOUT));
-			System.out.println(inputll.toString());
-			inputll.remove(i+1);
-			System.out.println(inputll.toString());
-			return inputll;
-			} else {}
-		
-		//CUBICROOT
-		if (inputll.get(i).equals("cbrt")) {
-			double tempIN2 = 0;
-			double tempOUT = 0;
-			System.out.println("------------------------");
-			System.out.println("Aktuelles Objekt: " + inputll.get(i));
-			System.out.println("eins drüber: " + inputll.get(i+1));
-			System.out.println("------------------------");
-			
-			tempIN2 = Double.parseDouble(inputll.get(i+1));
-			
-			tempOUT = Math.cbrt(tempIN2);
-			
-			System.out.println("Ergebnis: " + tempOUT);
-			
-			System.out.println("I: "+i);
-			System.out.println(inputll.toString());
-			inputll.set(i, Double.toString(tempOUT));
-			System.out.println(inputll.toString());
-			inputll.remove(i+1);
-			System.out.println(inputll.toString());
-			return inputll;
-			} else {}
-		
-		//SINUS
-		if (inputll.get(i).equals("sin")) {
-			double tempIN2 = 0;
-			double tempOUT = 0;
-			System.out.println("------------------------");
-			System.out.println("Aktuelles Objekt: " + inputll.get(i));
-			System.out.println("eins drüber: " + inputll.get(i+1));
-			System.out.println("------------------------");
-			
-			tempIN2 = Double.parseDouble(inputll.get(i+1));
-			
-			tempOUT = Math.sin(tempIN2);
-			
-			System.out.println("Ergebnis: " + tempOUT);
-			
-			System.out.println("I: "+i);
-			System.out.println(inputll.toString());
-			inputll.set(i, Double.toString(tempOUT));
-			System.out.println(inputll.toString());
-			inputll.remove(i+1);
-			System.out.println(inputll.toString());
-			return inputll;
-			} else {}
-		
-		//COSINUS
-		if (inputll.get(i).equals("cos")) {
-			double tempIN2 = 0;
-			double tempOUT = 0;
-			System.out.println("------------------------");
-			System.out.println("Aktuelles Objekt: " + inputll.get(i));
-			System.out.println("eins drüber: " + inputll.get(i+1));
-			System.out.println("------------------------");
-			
-			tempIN2 = Double.parseDouble(inputll.get(i+1));
-			
-			tempOUT = Math.cos(tempIN2);
-			
-			System.out.println("Ergebnis: " + tempOUT);
-			
-			System.out.println("I: "+i);
-			System.out.println(inputll.toString());
-			inputll.set(i, Double.toString(tempOUT));
-			System.out.println(inputll.toString());
-			inputll.remove(i+1);
-			System.out.println(inputll.toString());
-			return inputll;
-			} else {}
-		
-		//TANGENS
-		if (inputll.get(i).equals("tan")) {
-			double tempIN2 = 0;
-			double tempOUT = 0;
-			System.out.println("------------------------");
-			System.out.println("Aktuelles Objekt: " + inputll.get(i));
-			System.out.println("eins drüber: " + inputll.get(i+1));
-			System.out.println("------------------------");
-			
-			tempIN2 = Double.parseDouble(inputll.get(i+1));
-			
-			tempOUT = Math.tan(tempIN2);
-			
-			System.out.println("Ergebnis: " + tempOUT);
-			
-			System.out.println("I: "+i);
-			System.out.println(inputll.toString());
-			inputll.set(i, Double.toString(tempOUT));
-			System.out.println(inputll.toString());
-			inputll.remove(i+1);
-			System.out.println(inputll.toString());
-			return inputll;
-			} else {}
-		
-		//FACULTY
-		if (inputll.get(i).equals("fac")) {
-			double tempIN2 = 0;
-			double tempOUT = 1;
-			System.out.println("------------------------");
-			System.out.println("Aktuelles Objekt: " + inputll.get(i));
-			System.out.println("eins drüber: " + inputll.get(i+1));
-			System.out.println("------------------------");
-			
-			tempIN2 = Double.parseDouble(inputll.get(i+1));
-			
-			for (int j = 1; j < tempIN2; j++) {
-				tempOUT = tempOUT*j;
-			}
-			
-			System.out.println("Ergebnis: " + tempOUT);
-			
-			System.out.println("I: "+i);
-			System.out.println(inputll.toString());
-			inputll.set(i, Double.toString(tempOUT));
-			System.out.println(inputll.toString());
-			inputll.remove(i+1);
-			System.out.println(inputll.toString());
-			return inputll;
-			} else {}
-		
-		//ADDITION
-		if (inputll.get(i).equals("add") && !(inputll.contains("mul") ||inputll.contains("div") || inputll.contains("pow")
-				|| inputll.contains("prc") || inputll.contains("sqrt") || inputll.contains("cbrt") || inputll.contains("ln") 
-				|| inputll.contains("log")  || inputll.contains("sin") || inputll.contains("cos") || inputll.contains("tan")
-				|| inputll.contains("fac"))) {
-			double tempIN1 = 0;
-			double tempIN2 = 0;
-			double tempOUT = 0;
-			System.out.println("------------------------");
-			System.out.println("eins drunter: " + inputll.get(i-1));
-			System.out.println("Aktuelles Objekt: " + inputll.get(i));
-			System.out.println("eins drüber: " + inputll.get(i+1));
-			System.out.println("------------------------");
-			
-			tempIN1 = Double.parseDouble(inputll.get(i-1));
-			tempIN2 = Double.parseDouble(inputll.get(i+1));
-			
-			tempOUT = tempIN1 + tempIN2;
-			
-			System.out.println("Ergebnis: " + tempOUT);
-			
-			System.out.println("I: "+i);
-			System.out.println(inputll.toString());
-			inputll.set(i, Double.toString(tempOUT));
-			System.out.println(inputll.toString());
-			inputll.remove(i+1);
-			System.out.println(inputll.toString());
-			inputll.remove(i-1);
-			System.out.println(inputll.toString());
-			return inputll;
-			} else {}
-		
-		//SUBTRACTION
-		if (inputll.get(i).equals("sub") && !(inputll.contains("mul") ||inputll.contains("div") || inputll.contains("pow")
-				|| inputll.contains("prc") || inputll.contains("sqrt") || inputll.contains("cbrt") || inputll.contains("ln") 
-				|| inputll.contains("log")  || inputll.contains("sin") || inputll.contains("cos") || inputll.contains("tan")
-				|| inputll.contains("fac"))) {
-			double tempIN1 = 0;
-			double tempIN2 = 0;
-			double tempOUT = 0;
-			System.out.println("------------------------");
-			System.out.println("eins drunter: " + inputll.get(i-1));
-			System.out.println("Aktuelles Objekt: " + inputll.get(i));
-			System.out.println("eins drüber: " + inputll.get(i+1));
-			System.out.println("------------------------");
-			
-			tempIN1 = Double.parseDouble(inputll.get(i-1));
-			tempIN2 = Double.parseDouble(inputll.get(i+1));
-			
-			tempOUT = tempIN1 - tempIN2;
-			
-			System.out.println("Ergebnis: " + tempOUT);
-			
-			System.out.println("I: "+i);
-			System.out.println(inputll.toString());
-			inputll.set(i, Double.toString(tempOUT));
-			System.out.println(inputll.toString());
-			inputll.remove(i+1);
-			System.out.println(inputll.toString());
-			inputll.remove(i-1);
-			System.out.println(inputll.toString());
-			return inputll;
-			} else {}
-	
+				
+				
 		
 
-		return inputll;	
-		
 	}
+	
 	 
+	 //Returns the result as a string
 	 public String getResult(){
 		 return finalResult;
 	 }
