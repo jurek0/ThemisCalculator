@@ -3,10 +3,6 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -78,7 +74,7 @@ public class Window {
 		frame.setBounds(0, 0, 500, 700);
 		frame.setResizable(false);
 		frame.setFocusable(true);
-		frame.requestFocus();
+		frame.isAutoRequestFocus();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("icon_new.png")));
@@ -149,24 +145,6 @@ public class Window {
 		
 //-------------------------------------------------------No more buttons-----------------------------------------------------------------
 		//Adding of the components
-		frame.addMouseMotionListener(new MouseMotionListener() {
-			
-			@Override
-			public void mouseMoved(MouseEvent e) {
-				frame.requestFocus();	
-			}
-			@Override
-			public void mouseDragged(MouseEvent e) {}
-		});
-		tfInput.addMouseMotionListener(new MouseMotionListener() {
-			
-			@Override
-			public void mouseMoved(MouseEvent e) {
-				tfInput.requestFocus();	
-			}
-			@Override
-			public void mouseDragged(MouseEvent e) {}
-		});
 		frame.add(tfInput);
 		frame.add(tfResult);
 		frame.add(lblInput);

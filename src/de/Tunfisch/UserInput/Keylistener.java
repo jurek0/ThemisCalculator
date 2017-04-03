@@ -63,6 +63,9 @@ public class Keylistener {
 				if(e.getKeyCode() == KeyEvent.VK_E){
 					tfInput.setText(tfInput.getText()+"e");
 				}
+				if(e.getKeyCode() == KeyEvent.VK_J){
+					frame.requestFocus();
+				}
 				
 				if(e.getKeyCode() == KeyEvent.VK_DELETE){
 					tfInput.setText("");
@@ -124,6 +127,9 @@ public class Keylistener {
 				}
 				if(e.getKeyCode() == KeyEvent.VK_ADD){
 					tfInput.setText(tfInput.getText()+"+");
+				}
+				if(e.getKeyCode() == KeyEvent.VK_DECIMAL){
+					tfInput.setText(tfInput.getText()+",");
 				}
 			}
 		});
