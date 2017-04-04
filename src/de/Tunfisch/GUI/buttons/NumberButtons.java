@@ -1,5 +1,6 @@
 package de.Tunfisch.GUI.buttons;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,10 +15,11 @@ public class NumberButtons {
 	JButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn0;	
 	
 	
-	public void addNumberButtons(JFrame extFrame, JTextField extTfInput){
+	public void addNumberButtons(JFrame extFrame, JTextField extTfInput, Color defaultColor){
 		
 		tfInput = extTfInput;
 		frame = extFrame;
+		
 		
 		//BTN_SEVEN
 				btn7 = new JButton("7");
@@ -118,6 +120,17 @@ public class NumberButtons {
 					tfInput.setText(tfInput.getText()+"0");
 					}	
 				});
+				
+				btn0.setBackground(defaultColor);
+				btn1.setBackground(defaultColor);
+				btn2.setBackground(defaultColor);
+				btn3.setBackground(defaultColor);
+				btn4.setBackground(defaultColor);
+				btn5.setBackground(defaultColor);
+				btn6.setBackground(defaultColor);
+				btn7.setBackground(defaultColor);
+				btn8.setBackground(defaultColor);
+				btn9.setBackground(defaultColor);
 		
 				frame.add(btn1);
 				frame.add(btn2);

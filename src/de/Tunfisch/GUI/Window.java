@@ -59,7 +59,7 @@ public class Window {
 	}	
 	public Window(){
 		initialize("1.3-DE, DEBUG-EDITION");
-		numberbtns.addNumberButtons(frame, tfInput);
+		numberbtns.addNumberButtons(frame, tfInput, Color.white);
 		opbtns.addOperatorButtons(frame, tfInput);
 		mathbtns.addMathButtons(frame, tfInput);
 		otherbtns.addOtherButtons(frame, tfInput, tfResult);
@@ -78,6 +78,8 @@ public class Window {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("icon_new.png")));
+		frame.getContentPane().setBackground(Color.gray);
+		frame.getContentPane().setForeground(Color.gray);
 
 		//Input-Field
 		tfInput = new JTextField();
@@ -93,14 +95,17 @@ public class Window {
 		//Input-Label
 		lblInput = new JLabel("Eingabefeld");
 		lblInput.setBounds(100, 65, 100, 30);
+		lblInput.setForeground(Color.white);
 		
 		//Result-Label 
 		lblResult = new JLabel("Ergebnisfeld");
 		lblResult.setBounds(100, 130, 300, 30);
+		lblResult.setForeground(Color.white);
 		
 		//Version-Label
 		lblVersion = new JLabel(versionnumber);
 		lblVersion.setBounds(10, 640, 470, 40);
+		lblVersion.setForeground(Color.white);
 		
 		//Buttons---------------------------------------------------------------------------------------------------------
 		
@@ -163,6 +168,11 @@ public class Window {
 		
 		radian.setBounds(100, 480, 100, 30);
 		degree.setBounds(100, 505, 100, 30);
+		
+		degree.setBackground(Color.gray);
+		radian.setBackground(Color.gray);
+		degree.setForeground(Color.white);
+		radian.setForeground(Color.white);
 		
 		
 		ButtonGroup group = new ButtonGroup();

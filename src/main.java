@@ -1,5 +1,3 @@
-
-
 import de.Tunfisch.GUI.Window;
 
 public class main {
