@@ -75,24 +75,8 @@ public class ThemisSolver {
 					//Option 1: List contains parantheses
 					if (inputll.contains(")") || inputll.contains("(")) {
 						
-						//Some vars and so
-						String betweenPars;
-						String[] betweenParsTemp;
-						LinkedList<String> ParInputll = new LinkedList<>();
-						int closingPar = 0;
-						int openingPar = 0;
+						//Return String inside the parantheses
 						
-						betweenPars = inputll.toString();
-						System.out.println("Zwischen Klammern: "+betweenPars);
-						
-						//String in Array verwandeln, dann innerste klammer seperieren und in List umwandeln, List ausrechnen, ergebnis einsetzen
-						betweenPars = betweenPars.replace(",", "");
-						betweenPars = betweenPars.replace("[", "");
-						betweenPars = betweenPars.replace("]", "");
-						System.out.println(betweenPars);
-						betweenParsTemp = betweenPars.split(" ");
-						
-						//No put this in the class called ThemisParenthesesExtractor
 						
 					} else { //Option 2: List doesnt contains parantheses (anymore)
 
