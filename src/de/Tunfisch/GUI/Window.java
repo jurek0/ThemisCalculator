@@ -1,5 +1,6 @@
 package de.Tunfisch.GUI;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,8 @@ import de.Tunfisch.GUI.buttons.MathButtons;
 import de.Tunfisch.GUI.buttons.NumberButtons;
 import de.Tunfisch.GUI.buttons.OperatorButtons;
 import de.Tunfisch.GUI.buttons.OtherButtons;
+import de.Tunfisch.LWFD.LWFDScreen;
+import de.Tunfisch.Themis2.ThemisParenthesesExtractor;
 import de.Tunfisch.Themis2.ThemisSolver;
 import de.Tunfisch.UserInput.Keylistener;
 
@@ -38,10 +41,14 @@ public class Window {
 	public JLabel lblResult;
 	
 	//Buttons
-	public JButton btnEnter, btnClearAll, btnANS;
+	public JButton btnEnter, btnClearAll, btnANS, btnRESET, btnToggleGraph;
 		
 	//Calculator
 	ThemisSolver themis = new ThemisSolver();
+	//Extractor
+	ThemisParenthesesExtractor themisXtr = new ThemisParenthesesExtractor();
+	//Graph-stuff
+	LWFDScreen lwfd = new LWFDScreen();
 	
 	//Buttons
 	NumberButtons numberbtns = new NumberButtons();
@@ -58,7 +65,7 @@ public class Window {
 		window.frame.setVisible(true);
 	}	
 	public Window(){
-		initialize("1.3-DE, DEBUG-EDITION");
+		initialize("1.4-DE, DEBUG-EDITION");
 		numberbtns.addNumberButtons(frame, tfInput, Color.white);
 		opbtns.addOperatorButtons(frame, tfInput);
 		mathbtns.addMathButtons(frame, tfInput);
@@ -104,7 +111,7 @@ public class Window {
 		
 		//Version-Label
 		lblVersion = new JLabel(versionnumber);
-		lblVersion.setBounds(10, 640, 470, 40);
+		lblVersion.setBounds(10, 620, 470, 40);
 		lblVersion.setForeground(Color.white);
 		
 		//Buttons---------------------------------------------------------------------------------------------------------
@@ -116,16 +123,16 @@ public class Window {
 		btnEnter.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			
+			System.out.println("PRESSED ENTER, CALCULATING.....................");
 			themis.calculate(tfInput.getText(), isDegree);
 			tfResult.setText(themis.getResult());
 			frame.requestFocus();
+			System.out.println("PRESSED ENTER, CALCULATING DONE!");
 			}	
 		});
 		btnEnter.setBackground(Color.orange);
 		
 		//BTN_DELALL
-		//DELBTN
 		btnClearAll = new JButton("DEL");
 		btnClearAll.setBounds(350, 200, 65, 35);
 		btnClearAll.addActionListener(new ActionListener(){
@@ -136,6 +143,23 @@ public class Window {
 			}	
 		});
 		btnClearAll.setBackground(Color.red);
+		
+		//BTN_RESET
+		btnRESET = new JButton("RST");
+		btnRESET.setBounds(350, 430, 65, 45);
+		btnRESET.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					themis.clearObj();
+					themisXtr.clearObj();
+				} catch (Exception e2) {
+					System.out.println("Error: Nothing to delete");
+				}
+			}	
+		});
+		btnRESET.setBackground(Color.darkGray);
+		btnRESET.setForeground(Color.white);
 		
 		//BTN_ANS
 		btnANS = new JButton("ANS");
@@ -158,6 +182,8 @@ public class Window {
 		frame.add(btnEnter);
 		frame.add(btnClearAll);
 		frame.add(btnANS);
+		frame.add(btnRESET);
+		
 	}
 	
 	public void RadioButtons(){

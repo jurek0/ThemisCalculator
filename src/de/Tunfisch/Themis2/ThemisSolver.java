@@ -2,13 +2,17 @@ package de.Tunfisch.Themis2;
 
 import java.util.LinkedList;
 
-import com.sun.corba.se.spi.orbutil.fsm.Input;
-
 public class ThemisSolver {
 
 	
 	//Accessing the Calculator
 	ThemisCalculator themisCalc = new ThemisCalculator();
+	
+	//Accessing the Parentheses Extractor
+	ThemisParenthesesExtractor themisParEx = new ThemisParenthesesExtractor();
+	
+	//Accessing the Helper
+	ThemisHelper helper = new ThemisHelper();
 	
 	//The funny LinkedList which is used to solve the Calculation
 	LinkedList<String> inputll = new LinkedList<>(); 
@@ -33,17 +37,17 @@ public class ThemisSolver {
 				toSolve = toSolve.replace("*", " mul ");
 				toSolve = toSolve.replace("/", " div ");
 				toSolve = toSolve.replace("%", " prc ");
-				toSolve = toSolve.replace("sqrt(", " sqrt ");
-				toSolve = toSolve.replace("cbrt(", " cbrt ");
-				toSolve = toSolve.replace("^(", " pow ");
-				toSolve = toSolve.replace("sin(", " sin ");
-				toSolve = toSolve.replace("cos(", " cos ");
-				toSolve = toSolve.replace("tan(", " tan ");
+				toSolve = toSolve.replace("sqrt", " sqrt ");
+				toSolve = toSolve.replace("cbrt", " cbrt ");
+				toSolve = toSolve.replace("^", " pow ");
+				toSolve = toSolve.replace("sin", " sin ");
+				toSolve = toSolve.replace("cos", " cos ");
+				toSolve = toSolve.replace("tan", " tan ");
 				toSolve = toSolve.replace("neg", " -");
 				toSolve = toSolve.replace("e", " E ");
 				toSolve = toSolve.replace("PI", " PI ");
-				toSolve = toSolve.replace("log(", " log ");
-				toSolve = toSolve.replace("ln(", " ln ");
+				toSolve = toSolve.replace("log", " log ");
+				toSolve = toSolve.replace("ln", " ln ");
 				toSolve = toSolve.replace("(", " ( ");
 				toSolve = toSolve.replace(")", " ) ");
 				
@@ -66,20 +70,45 @@ public class ThemisSolver {
 					inputll.add(tempInput[i]);
 					}
 				
-				System.out.println("Ganze List als String: "+inputll.toString());
+				System.out.println("Solver: Whole list as String: "+inputll.toString());
+				
+				
+				//Maybe there are some muls missing. Adding them here
+				for (int i = 0; i < inputll.size(); i++) {
+					//Two brackets like this )(
+					
+				}
 
 				
-				//Loop
-				for (int j = 0; j < 2; j++) {
+				//Loop checking for parantheses and operators and sending to calculator
+				
+				//I AM GOING THROUGH THIS LOOP TWO TIMES AS MUCH AS THE LIST IS LONG BECAUSE IT FIXES THE PROBLEM OF NOT 
+				//CALCULATING THE WHOLE TERM IF I ONLY GOING THROUGH THE LOOP AS OFTEN AS THE TERM IS LONG
+				for (int j = 0; j < inputll.size()*2; j++) {
+					
+					System.out.println("Solver: Entering check-loop for " + (j+1) + " time ===========================================");
 					
 					//Option 1: List contains parantheses
 					if (inputll.contains(")") || inputll.contains("(")) {
 						
-						//Return String inside the parantheses
+						//Return String after solving one Parantheses
+						System.out.println("Solver: Contains Parantheses");
+						System.out.println("Solver: Sending command to Xtractor...");
+						themisParEx.ParanthesesExtractor(inputll);
+						System.out.println("Solver: Pulling processed list...");
+						inputll = themisParEx.getResult();
+						System.out.println("Solver: Insertet to inputll: " + inputll.toString());
 						
 						
-					} else { //Option 2: List doesnt contains parantheses (anymore)
-
+					} 
+					//Option 2: List doesnt contains parantheses (anymore)
+					if (!(inputll.contains("(") || inputll.contains(")")) && 
+							   (inputll.contains("mul") || inputll.contains("div") || inputll.contains("add") 
+						     || inputll.contains("sub") || inputll.contains("pow") || inputll.contains("prc") 
+						     || inputll.contains("sqrt") || inputll.contains("cbrt") || inputll.contains("sin") 
+						     || inputll.contains("cos") || inputll.contains("tan") || inputll.contains("log") || inputll.contains("ln"))){ 
+						System.out.println("Solver: inputll does not contain any parantheses and contains operators");
+							inputll = themisCalc.getCalc(inputll);
 					}
 					
 				}
@@ -100,6 +129,10 @@ public class ThemisSolver {
 	 //Returns the result as a string
 	 public String getResult(){
 		 return finalResult;
+	 }
+	 
+	 public void clearObj(){
+		 inputll.clear();
 	 }
 	
 }
