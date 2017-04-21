@@ -8,12 +8,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
+import de.Tunfisch.GUI.VersionInfo;
+
 public class OtherButtons {
 	
 	JFrame frame;
 	JTextField tfInput, tfResult;
 	JButton btnBracketOpen, btnBracketClose; 
 	JButton btnBackspace, btnShutdown;
+	JButton btnInfo;
+	VersionInfo vinfo = new VersionInfo();
 	
 	public void addOtherButtons(JFrame extFrame, JTextField extTfInput, JTextField extTfResult){
 		frame = extFrame;
@@ -63,17 +67,30 @@ public class OtherButtons {
 			}
 		});
 		
+		//BTN_INFO
+				btnInfo = new JButton("i");
+				btnInfo.setBounds(745, 10, 45, 45);
+				btnInfo.addActionListener(new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						vinfo.start();
+					}
+				});
+		
 		//COLORING
 		btnBracketClose.setBackground(Color.green);
 		btnBracketOpen.setBackground(Color.green);
 		btnBackspace.setBackground(Color.red);
 		btnShutdown.setBackground(Color.darkGray);
 		btnShutdown.setForeground(Color.white);
+		btnInfo.setBackground(Color.gray);
+		btnInfo.setForeground(Color.white);
 		
 		frame.add(btnBackspace);
 		frame.add(btnBracketOpen);
 		frame.add(btnBracketClose);
 		frame.add(btnShutdown);
+		frame.add(btnInfo);
 	}
 
 }

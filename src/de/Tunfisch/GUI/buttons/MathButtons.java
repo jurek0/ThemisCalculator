@@ -12,7 +12,7 @@ public class MathButtons {
 
 	JTextField tfInput;
 	JFrame frame;
-	JButton btnLN, btnLOG, btnPOW, btnSIN, btnCOS, btnTAN, btnE, btnPI, btnSQRT, btnCBRT;
+	JButton btnLN, btnLOG, btnPOW, btnX, btnSIN, btnCOS, btnTAN, btnE, btnPI, btnSQRT, btnCBRT;
 	
 	public void addMathButtons(JFrame extFrame, JTextField extTfInput){
 		tfInput = extTfInput;
@@ -47,6 +47,16 @@ public class MathButtons {
 			tfInput.setText(tfInput.getText()+"^(");
 			}	
 		});
+		
+		//BTN_X
+		btnX = new JButton("X");
+		btnX.setBounds(300, 480, 45, 45);
+		btnX.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			tfInput.setText(tfInput.getText()+"X");
+			}	
+		});		
 		
 		//Buttons in row at top ==============================
 		
@@ -133,11 +143,13 @@ public class MathButtons {
 		btnPI.setBackground(Color.green);
 		btnSQRT.setBackground(Color.green);
 		btnCBRT.setBackground(Color.green);
+		btnX.setBackground(Color.green);
 		
 		
 		frame.add(btnLN);
 		frame.add(btnLOG);
 		frame.add(btnPOW);
+		frame.add(btnX);
 		frame.add(btnSQRT);
 		frame.add(btnCBRT);
 		frame.add(btnSIN);

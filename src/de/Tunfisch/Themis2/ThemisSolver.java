@@ -14,6 +14,9 @@ public class ThemisSolver {
 	//Accessing the Helper
 	ThemisHelper helper = new ThemisHelper();
 	
+	//Accessing the Inserter
+	ThemisMulInserter inserter = new ThemisMulInserter();
+	
 	//The funny LinkedList which is used to solve the Calculation
 	LinkedList<String> inputll = new LinkedList<>(); 
 	
@@ -74,10 +77,7 @@ public class ThemisSolver {
 				
 				
 				//Maybe there are some muls missing. Adding them here
-				for (int i = 0; i < inputll.size(); i++) {
-					//Two brackets like this )(
-					
-				}
+				//inputll = inserter.insertMul(inputll);
 
 				
 				//Loop checking for parantheses and operators and sending to calculator
@@ -103,17 +103,17 @@ public class ThemisSolver {
 					} 
 					//Option 2: List doesnt contains parantheses (anymore)
 					if (!(inputll.contains("(") || inputll.contains(")")) && 
-							   (inputll.contains("mul") || inputll.contains("div") || inputll.contains("add") 
+							  ((inputll.contains("mul") || inputll.contains("div") || inputll.contains("add") 
 						     || inputll.contains("sub") || inputll.contains("pow") || inputll.contains("prc") 
 						     || inputll.contains("sqrt") || inputll.contains("cbrt") || inputll.contains("sin") 
-						     || inputll.contains("cos") || inputll.contains("tan") || inputll.contains("log") || inputll.contains("ln"))){ 
+						     || inputll.contains("cos") || inputll.contains("tan") || inputll.contains("log") || inputll.contains("ln")))){ 
 						System.out.println("Solver: inputll does not contain any parantheses and contains operators");
 							inputll = themisCalc.getCalc(inputll);
 					}
 					
 				}
 				
-				System.out.println("Liste als String am Ende: "+inputll.toString());
+				System.out.println("Solver: Liste als String am Ende: "+inputll.toString());
 				finalResult = inputll.toString();
 				finalResult = finalResult.substring(1, finalResult.length()-1);
 				

@@ -8,37 +8,37 @@ public class ThemisParenthesesExtractor {
 	
 	String result = "";
 	String tempResult = "";
-	LinkedList<String> processable; //Gets processed
+	LinkedList<String> input; //Gets processed
 	LinkedList<String> insidePars = new LinkedList<>();
 	boolean paranthesisIsOpen = false;
 
 	public void ParanthesesExtractor(LinkedList<String> extInput){
 		//DEBUG
 		System.out.println("ParX: Entering Paranthesesextractor...");
-		processable = extInput;
+		input = extInput;
 		
 		//Goes trough List backwards
 		System.out.println("ParX: Going backwards");
 		//parInput.size()-1 because otherwise an outofbounds-error would occur
-		for (int i = processable.size()-1; i >= 0; i--) {
-			System.out.println("ParX: Element at position " + i + " is " + processable.get(i));
+		for (int i = input.size()-1; i >= 0; i--) {
+			System.out.println("ParX: Element at position " + i + " is " + input.get(i));
 			
 			//Wenn das Element ein ( ist, wird die schleife umgekehrt abgespielt ab dieser Posotion
 			//und abgespeichert
-			if (processable.get(i).equals("(")) {
+			if (input.get(i).equals("(")) {
 				
 				System.out.println("ParX: Found '(', going forward");
 				
-				for (int j = i; j < processable.size(); j++) {
-					System.out.println("ParX: Current element in forward-loop: " + processable.get(j) + ", adding this element");
-					insidePars.add(processable.get(j));
+				for (int j = i; j < input.size(); j++) {
+					System.out.println("ParX: Current element in forward-loop: " + input.get(j) + ", adding this element");
+					insidePars.add(input.get(j));
 					
 					//there is an ) then stop the loop
-					if (processable.get(j).equals(")")) {
-						processable.set(j,"@");
+					if (input.get(j).equals(")")) {
+						input.set(j,"@");
 						break;
 					} else {
-						processable.set(j, "#");
+						input.set(j, "#");
 					}
 				}
 				//Breaking the forward-loop
@@ -50,7 +50,7 @@ public class ThemisParenthesesExtractor {
 		
 		//Testing both Lists
 		System.out.println("ParX: Raw Insidepars: " + insidePars.toString());
-		System.out.println("ParX: Whole List: " + processable);
+		System.out.println("ParX: Whole List: " + input);
 		
 		//Shortening InsidePars
 		insidePars.removeFirst();
@@ -59,18 +59,18 @@ public class ThemisParenthesesExtractor {
 		
 		//Whole calculation has to be made free from "#"
 		for (int i = 0; i < 1; i++) {
-			if (processable.contains("#")) {
-				for (int j = 0; j < processable.size(); j++) {
+			if (input.contains("#")) {
+				for (int j = 0; j < input.size(); j++) {
 					
 					//The element is a #
-					if (processable.get(j).contains("#")) {
-						processable.remove(j);
+					if (input.get(j).contains("#")) {
+						input.remove(j);
 					}
 					
 					//The element is an @
-					if (processable.get(j).contains("@")) {
-						System.out.println("ParX: Sending term to Calculator");
-						processable.set(j, themiscalc.getCalc(insidePars).getFirst());
+					if (input.get(j).contains("@")) {
+						System.out.println("ParX: Sending term '" + insidePars + "' to Calculator");
+						input.set(j, themiscalc.getCalc(insidePars).toString());
 						System.out.println("ParX: Received answer from Calculator");
 					}
 				}
@@ -80,7 +80,7 @@ public class ThemisParenthesesExtractor {
 			i--;
 		}
 		
-		System.out.println("ParX: Finished task with result: " + processable.toString());
+		System.out.println("ParX: Finished task with result: " + input.toString());
 		System.out.println();
 		
 		
@@ -90,11 +90,11 @@ public class ThemisParenthesesExtractor {
 	}
 	
 	public LinkedList<String> getResult(){
-		return processable;
+		return input;
 	}
 	
 	public void clearObj(){
-		processable.clear();
+		input.clear();
 		insidePars.clear();
 		result = "";
 		tempResult = "";

@@ -2,20 +2,22 @@ package de.Tunfisch.Themis2;
 
 import java.util.LinkedList;
 
+import de.Tunfisch.GUI.buttons.RadioButtons;
+
 public class ThemisCalculator {
 	
-	boolean isDegree = false;
-	
-	//Setting isDegree central
-	public void setIsDegree(boolean extIsDegree){
-		isDegree = extIsDegree;
-	}
-
+	ThemisHelper helper = new ThemisHelper();
+	RadioButtons rbuttons = new RadioButtons();
 
 	//Method which calculates and respects point for line
 	 public LinkedList<String> getCalc(LinkedList<String> inputll){
 			
 		 System.out.println("CalcX: Entering Calculator...");
+		 rbuttons.group.getSelection();
+		 if (rbuttons.degree.isSelected()) {
+			System.out.println("SET TO DEGREE");
+		}
+		 System.out.println("CalcX: isDegree: " + rbuttons.degree.isSelected());
 		 
 		 for (int i = 0; i < inputll.size(); i++) {
 			 
@@ -27,7 +29,7 @@ public class ThemisCalculator {
 				System.out.println("------------------------");
 				System.out.println("CalcX: eins drunter: " + inputll.get(i-1));
 				System.out.println("CalcX: Aktuelles Objekt: " + inputll.get(i));
-				System.out.println("CalcX: eins drüber: " + inputll.get(i+1));
+				System.out.println("CalcX: eins drÃ¼ber: " + inputll.get(i+1));
 				System.out.println("------------------------");
 				
 				//Checking for irrational numbers on input 1 and parsing
@@ -79,16 +81,17 @@ public class ThemisCalculator {
 				System.out.println(inputll.toString());
 				inputll.remove(i-1);
 				System.out.println(inputll.toString());
-				return inputll;
+				//return inputll;
 				} 
 			
 			//DOT-DUAL-PART-SUBCALCULATION (OPERATOR NUMBER)
-			if (inputll.get(i).equals("ln") || inputll.get(i).equals("log") || inputll.get(i).equals("sqrt") || inputll.get(i).equals("cbrt")) {
+			if (inputll.get(i).equals("ln") || inputll.get(i).equals("log") || inputll.get(i).equals("sqrt") || inputll.get(i).equals("cbrt") ||
+				inputll.get(i).equals("sin") || inputll.get(i).equals("cos") || inputll.get(i).equals("tan")) {
 				double tempIN2 = 0;
 				double tempOUT = 0;
 				System.out.println("------------------------");
 				System.out.println("CalcX: Aktuelles Objekt: " + inputll.get(i));
-				System.out.println("CalcX: eins drüber: " + inputll.get(i+1));
+				System.out.println("CalcX: eins drÃ¼ber: " + inputll.get(i+1));
 				System.out.println("------------------------");
 				
 				//Checking for irrational numbers on input 2 and parsing
@@ -120,6 +123,30 @@ public class ThemisCalculator {
 					tempOUT = Math.cbrt(tempIN2);
 				}
 				
+				//SINUS
+				if (inputll.get(i).equals("sin")) {
+					tempOUT = Math.sin(tempIN2);
+					if (rbuttons.degree.isSelected()) {
+						tempOUT = helper.getDegreeFromRadial(tempOUT);
+					}
+				}
+				
+				//COSINUS
+				if (inputll.get(i).equals("cos")) {
+					tempOUT = Math.cos(tempIN2);
+					if (rbuttons.degree.isSelected()) {
+						tempOUT = helper.getDegreeFromRadial(tempOUT);
+					}
+				}
+				
+				//TANGENS
+				if (inputll.get(i).equals("tan")) {
+					tempOUT = Math.tan(tempIN2);
+					if (rbuttons.degree.isSelected()) {
+						tempOUT = helper.getDegreeFromRadial(tempOUT);
+					}
+				}
+				
 				System.out.println("CalcX: Ergebnis: " + tempOUT);
 				
 				System.out.println("CalcX: I: "+i);
@@ -128,7 +155,7 @@ public class ThemisCalculator {
 				System.out.println(inputll.toString());
 				inputll.remove(i+1);
 				System.out.println(inputll.toString());
-				return inputll;
+				//return inputll;
 				}
 			
 			//LINE-TRI-PART-SUBCALCULATION (NUMBER OPERATOR NUMBER)
@@ -141,7 +168,7 @@ public class ThemisCalculator {
 				System.out.println("------------------------");
 				System.out.println("CalcX: eins drunter: " + inputll.get(i-1));
 				System.out.println("CalcX: Aktuelles Objekt: " + inputll.get(i));
-				System.out.println("CalcX: eins drüber: " + inputll.get(i+1));
+				System.out.println("CalcX: eins drÃ¼ber: " + inputll.get(i+1));
 				System.out.println("------------------------");
 				
 				//Checking for irrational numbers on input 1 and parsing
@@ -182,9 +209,18 @@ public class ThemisCalculator {
 				System.out.println(inputll.toString());
 				inputll.remove(i-1);
 				System.out.println(inputll.toString());
-				return inputll;
+				//return inputll;
 				} 
+			
+			if ((inputll.contains("mul") ||inputll.contains("div") || inputll.contains("pow")
+					|| inputll.contains("prc") || inputll.contains("sqrt") || inputll.contains("cbrt") || inputll.contains("ln") 
+					|| inputll.contains("log") || inputll.contains("mul") || inputll.contains("sub")) && i==inputll.size()) {
+				i=0;
+			}
+			
 			 }
+		 
+		 
 			System.out.println("CalcX: Finished task with result: " + inputll.toString());
 			
 		return inputll;	
