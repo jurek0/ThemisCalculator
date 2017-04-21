@@ -84,7 +84,7 @@ public class ThemisSolver {
 				
 				//I AM GOING THROUGH THIS LOOP TWO TIMES AS MUCH AS THE LIST IS LONG BECAUSE IT FIXES THE PROBLEM OF NOT 
 				//CALCULATING THE WHOLE TERM IF I ONLY GOING THROUGH THE LOOP AS OFTEN AS THE TERM IS LONG
-				for (int j = 0; j < inputll.size()*2; j++) {
+				for (int j = 0; j < inputll.size(); j++) {
 					
 					System.out.println("Solver: Entering check-loop for " + (j+1) + " time ===========================================");
 					
@@ -109,6 +109,7 @@ public class ThemisSolver {
 						     || inputll.contains("cos") || inputll.contains("tan") || inputll.contains("log") || inputll.contains("ln"))){ 
 						System.out.println("Solver: inputll does not contain any parantheses and contains operators");
 							inputll = themisCalc.getCalc(inputll);
+							j--;
 					}
 					
 				}

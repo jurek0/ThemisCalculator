@@ -69,9 +69,19 @@ public class ThemisParenthesesExtractor {
 					
 					//The element is an @
 					if (processable.get(j).contains("@")) {
-						System.out.println("ParX: Sending term to Calculator");
-						processable.set(j, themiscalc.getCalc(insidePars).getFirst());
-						System.out.println("ParX: Received answer from Calculator");
+						
+						for (int ctr = 0; ctr < insidePars.size(); ctr++) {
+						if ((	insidePars.contains("mul") || insidePars.contains("div") || insidePars.contains("add") 
+						     || insidePars.contains("sub") || insidePars.contains("pow") || insidePars.contains("prc") 
+						     || insidePars.contains("sqrt") || insidePars.contains("cbrt") || insidePars.contains("sin") 
+						     || insidePars.contains("cos") || insidePars.contains("tan") || insidePars.contains("log") || insidePars.contains("ln"))){ 
+							System.out.println("Solver: insidePars do contain operators");
+								insidePars = themiscalc.getCalc(insidePars);
+								ctr--;
+							} else {
+								processable.set(j, insidePars.toString().substring(1, insidePars.toString().length()-1));
+							}
+						}
 					}
 				}
 			} else {
