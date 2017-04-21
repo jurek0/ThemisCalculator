@@ -28,7 +28,7 @@ public class ThemisSolver {
 	boolean isDegree;
 	
 	//The Calculate-method, use this in your program. Needs a String to solve and a boolean isDegree
-	public void calculate(String toSolve, boolean isDegree){
+	public void calculate(String toSolve, String angleMode){
 				
 				//REPLACE operators with others, adding spaces. Needed for later Splitting up
 				toSolve = toSolve.replace(",", ".");
@@ -94,7 +94,7 @@ public class ThemisSolver {
 						//Return String after solving one Parantheses
 						System.out.println("Solver: Contains Parantheses");
 						System.out.println("Solver: Sending command to Xtractor...");
-						themisParEx.ParanthesesExtractor(inputll);
+						themisParEx.ParanthesesExtractor(inputll, angleMode);
 						System.out.println("Solver: Pulling processed list...");
 						inputll = themisParEx.getResult();
 						System.out.println("Solver: Insertet to inputll: " + inputll.toString());
@@ -108,7 +108,7 @@ public class ThemisSolver {
 						     || inputll.contains("sqrt") || inputll.contains("cbrt") || inputll.contains("sin") 
 						     || inputll.contains("cos") || inputll.contains("tan") || inputll.contains("log") || inputll.contains("ln"))){ 
 						System.out.println("Solver: inputll does not contain any parantheses and contains operators");
-							inputll = themisCalc.getCalc(inputll);
+							inputll = themisCalc.getCalc(inputll, angleMode);
 							j--;
 					}
 					

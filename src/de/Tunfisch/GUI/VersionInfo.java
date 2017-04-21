@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 public class VersionInfo {
 
 	public JFrame frame;
-	public JLabel label, pic;
+	public JLabel label, pic, tut;
 	public ApplicationVersion version = new ApplicationVersion();
 	
 	public void start(){
@@ -23,7 +23,7 @@ public class VersionInfo {
 
 	public void initialize() {
 		frame = new JFrame("INFO - THEMISCALCULATOR " + version.getVersionnumber() + " " + version.getLang());
-		frame.setBounds(100, 100, 300, 300);
+		frame.setBounds(0, 0, 1300, 700);
 		frame.setResizable(false);
 		frame.setFocusable(true);
 		frame.isAutoRequestFocus();
@@ -34,9 +34,9 @@ public class VersionInfo {
 	
 		label = new JLabel();
 		label.setText("<html><body><h4>Themiscalculator der Version "+ version.getVersionnumber() +"<br>"
-				+ "Autor: " + version.getAuthor()+ "<h5><br>Enth�lt teilweise experimentellen Code.<br>Features wie Funktions/Wertetabellenberechnung befinden "
-				+ "sich noch im experimentellen/debug-<br>Stadium, die Benutzung kann fehlerbehaftet sein.<br>Bekannte Bugs: <br>"
-				+ "-No-Click-Tastatureingabe nicht m�glich, wenn zuvor ein Button gedr�ckt wurde.<br>"
+				+ "Autor: " + version.getAuthor()+ "<h5><br>Bekannte Bugs: <br>"
+				+ "-No-Click-Tastatureingabe nicht möglich, wenn zuvor ein Button gedrückt wurde.<br>"
+				+ "-Fehler bei der Verwendung von '-' als Prefix für negative Zahlen. Bitte 'neg' verwenden." 
 				+ "</h5></body></html>");
 		label.setBounds(10, 20, 260, 280);
 		
@@ -45,7 +45,13 @@ public class VersionInfo {
 		pic.setSize(54, 54);
 		pic.setBounds(120, 5, 64, 64);
 		
+		tut = new JLabel();
+		tut.setIcon(new ImageIcon(getClass().getClassLoader().getResource("tutorial.png")));
+		tut.setSize(1000, 700);
+		tut.setBounds(300, 0, 1000, 700);
+		
 		frame.add(pic);
+		frame.add(tut);
 		frame.add(label);
 		
 	}

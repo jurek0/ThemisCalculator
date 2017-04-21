@@ -24,7 +24,7 @@ public class EvalTable {
 		res = extResolution;
 	}
 	
-	public void loopTBL(){
+	public void loopTBL(String angleMode){
 		LinkedList<String> table = new LinkedList<>();
 		
 		table.clear();
@@ -41,7 +41,7 @@ public class EvalTable {
 			tempInput = tempInput.replace(" ", "");
 			tempInput = tempInput.replace("sub", " sub ");
 			System.out.println("EVTBL: tempinput: " + tempInput);
-			themis.calculate(tempInput, false);
+			themis.calculate(tempInput, angleMode);
 			result = themis.getResult();
 			table.add(result);
 			xaxis.add(Double.toString(d+min));

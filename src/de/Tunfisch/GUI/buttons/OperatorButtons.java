@@ -95,7 +95,8 @@ public class OperatorButtons {
 				btnMinus.setBackground(Color.orange);
 				btnMultiply.setBackground(Color.orange);
 				btnDivide.setBackground(Color.orange);
-
+				btnComma.setBackground(Color.white);
+				btnNegate.setBackground(Color.white);
 				btnPercentage.setBackground(Color.green);
 				
 				

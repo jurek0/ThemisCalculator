@@ -28,8 +28,10 @@ public class RadioButtons {
 		group.add(degree);
 		group.add(radian);
 		
+		/**
 		frame.add(askForCircleType);
 		frame.add(degree);
 		frame.add(radian);
+		*/
 	}
 }

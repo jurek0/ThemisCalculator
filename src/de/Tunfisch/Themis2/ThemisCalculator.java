@@ -2,18 +2,18 @@ package de.Tunfisch.Themis2;
 
 import java.util.LinkedList;
 
-import de.Tunfisch.GUI.buttons.RadioButtons;
+import de.Tunfisch.GUI.buttons.OtherButtons;
 
 public class ThemisCalculator {
 	
 	//Themishelper
 	ThemisHelper helper = new ThemisHelper();
-	//Radiobutton access
-	RadioButtons rbuttons = new RadioButtons();
+	//Rad/Deg-switching
+	OtherButtons raddeg = new OtherButtons();
 
 
 	//Method which calculates and respects point for line
-	 public LinkedList<String> getCalc(LinkedList<String> inputll){
+	 public LinkedList<String> getCalc(LinkedList<String> inputll, String angleMode){
 			
 		 System.out.println("CalcX: Entering Calculator...");
 		 
@@ -124,7 +124,8 @@ public class ThemisCalculator {
 				//SINUS
 				if (inputll.get(i).equals("sin")) {
 					tempOUT = Math.sin(tempIN2);
-					if (rbuttons.degree.isSelected()) {
+					if (angleMode.equals("deg")) {
+						System.out.println("CalcX: Degree");
 						tempOUT = helper.getDegreeFromRadial(tempOUT);
 					}
 				}
@@ -132,7 +133,7 @@ public class ThemisCalculator {
 				//COSINUS
 				if (inputll.get(i).equals("cos")) {
 					tempOUT = Math.cos(tempIN2);
-					if (rbuttons.degree.isSelected()) {
+					if (angleMode.equals("deg")) {
 						tempOUT = helper.getDegreeFromRadial(tempOUT);
 					}
 				}
@@ -140,7 +141,7 @@ public class ThemisCalculator {
 				//TANGENS
 				if (inputll.get(i).equals("tan")) {
 					tempOUT = Math.tan(tempIN2);
-					if (rbuttons.degree.isSelected()) {
+					if (angleMode.equals("deg")) {
 						tempOUT = helper.getDegreeFromRadial(tempOUT);
 					}
 				}

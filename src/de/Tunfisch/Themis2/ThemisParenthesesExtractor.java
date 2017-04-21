@@ -12,7 +12,7 @@ public class ThemisParenthesesExtractor {
 	LinkedList<String> insidePars = new LinkedList<>();
 	boolean paranthesisIsOpen = false;
 
-	public void ParanthesesExtractor(LinkedList<String> extInput){
+	public void ParanthesesExtractor(LinkedList<String> extInput, String angleMode){
 		//DEBUG
 		System.out.println("ParX: Entering Paranthesesextractor...");
 		processable = extInput;
@@ -76,7 +76,7 @@ public class ThemisParenthesesExtractor {
 						     || insidePars.contains("sqrt") || insidePars.contains("cbrt") || insidePars.contains("sin") 
 						     || insidePars.contains("cos") || insidePars.contains("tan") || insidePars.contains("log") || insidePars.contains("ln"))){ 
 							System.out.println("Solver: insidePars do contain operators");
-								insidePars = themiscalc.getCalc(insidePars);
+								insidePars = themiscalc.getCalc(insidePars, angleMode);
 								ctr--;
 							} else {
 								processable.set(j, insidePars.toString().substring(1, insidePars.toString().length()-1));

@@ -160,16 +160,15 @@ public class Window {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-			//try {
-				rbuttons.group.getSelection();
-				System.out.println("Window: Buttons are set to degree: " + rbuttons.degree.isSelected());
+			try {
+				System.out.println("Window: Buttons are set to " + otherbtns.hiddenTF.getText());
 				
 				if (tfInput.getText().contains("X") || tfInput.getText().contains("x")) {
 					//String contains x, try solving as a function
 					System.out.println("Window: PRESSED ENTER, CALCULATING.....................");
 					
 					evtbl.setEvalTableInput(tfInput.getText(), Integer.parseInt(tfXMin.getText()), Integer.parseInt(tfXMax.getText()), Double.parseDouble(tfRes.getText()));
-					evtbl.loopTBL();
+					evtbl.loopTBL(otherbtns.hiddenTF.getText());
 					System.out.println(evtbl.getEvalTableX());
 					System.out.println(evtbl.getEvalTableY());
 					evaluationTable.setText("                        Wertetabelle \n ==============================\n"+evtbl.getFormattedResult());
@@ -179,15 +178,15 @@ public class Window {
 				}	else {
 					//String does not contain any x, try solving as a normal calculation
 					System.out.println("Window: PRESSED ENTER, CALCULATING.....................");
-					themis.calculate(tfInput.getText(), rbuttons.degree.isSelected());
+					themis.calculate(tfInput.getText(), otherbtns.hiddenTF.getText());
 					tfResult.setText(themis.getResult());
 					frame.requestFocus();
 					System.out.println("Window: PRESSED ENTER, CALCULATING DONE!");
 				}
-			//} catch (Exception e2) {
-			//  fResult.setText("ERROR");
-			//  System.out.println("Window: An error occurreds");
-			//}
+			} catch (Exception e2) {
+			  tfResult.setText("ERROR");
+			  System.out.println("Window: An error occurreds");
+			}
 				
 			}	
 		});

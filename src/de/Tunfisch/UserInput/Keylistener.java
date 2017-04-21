@@ -6,11 +6,13 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
+import de.Tunfisch.GUI.buttons.OtherButtons;
 import de.Tunfisch.Themis2.ThemisSolver;
 
 public class Keylistener {
 	
 	ThemisSolver themis = new ThemisSolver();
+	OtherButtons otherbtns = new OtherButtons();
 
 	public void CalculatorKeys(JFrame frame, JTextField tfInput, JTextField tfResult){
 		
@@ -25,7 +27,7 @@ public class Keylistener {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER){
-					themis.calculate(tfInput.getText(), false);
+					themis.calculate(tfInput.getText(), otherbtns.hiddenTF.getText());
 					tfResult.setText(themis.getResult());
 					frame.requestFocus();
 					}

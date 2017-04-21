@@ -2,8 +2,11 @@ package de.Tunfisch.Themis2;
 
 import java.util.LinkedList;
 
+import de.Tunfisch.GUI.buttons.OtherButtons;
+
 public class ThemisHelper {
 
+	OtherButtons otherbtns = new OtherButtons();
 	boolean containsOPS = false;
 	double degreeResult = 0;
 	
@@ -34,6 +37,12 @@ public class ThemisHelper {
 		return degreeResult;
 	}
 	
+	public boolean askHelperIfDegreeIsSelected(){
+		
+		System.out.println("Helper: Degree is set: " + otherbtns.btnDeg.isVisible());
+		
+		return otherbtns.btnDeg.isVisible();
+	}
 	public int countBracketClose(LinkedList<String> toCheck){
 		int closedBrackets = 0;
 		
