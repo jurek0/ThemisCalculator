@@ -2,14 +2,14 @@ package de.Tunfisch.Themis2;
 
 import java.util.LinkedList;
 
+import de.Tunfisch.GUI.buttons.RadioButtons;
+
 public class ThemisCalculator {
 	
-	boolean isDegree = false;
-	
-	//Setting isDegree central
-	public void setIsDegree(boolean extIsDegree){
-		isDegree = extIsDegree;
-	}
+	//Themishelper
+	ThemisHelper helper = new ThemisHelper();
+	//Radiobutton access
+	RadioButtons rbuttons = new RadioButtons();
 
 
 	//Method which calculates and respects point for line
@@ -27,7 +27,7 @@ public class ThemisCalculator {
 				System.out.println("------------------------");
 				System.out.println("CalcX: eins drunter: " + inputll.get(i-1));
 				System.out.println("CalcX: Aktuelles Objekt: " + inputll.get(i));
-				System.out.println("CalcX: eins drüber: " + inputll.get(i+1));
+				System.out.println("CalcX: eins drï¿½ber: " + inputll.get(i+1));
 				System.out.println("------------------------");
 				
 				//Checking for irrational numbers on input 1 and parsing
@@ -83,12 +83,13 @@ public class ThemisCalculator {
 				} 
 			
 			//DOT-DUAL-PART-SUBCALCULATION (OPERATOR NUMBER)
-			if (inputll.get(i).equals("ln") || inputll.get(i).equals("log") || inputll.get(i).equals("sqrt") || inputll.get(i).equals("cbrt")) {
+			if (inputll.get(i).equals("ln") || inputll.get(i).equals("log") || inputll.get(i).equals("sqrt") || inputll.get(i).equals("cbrt") ||
+				inputll.get(i).equals("sin") || inputll.get(i).equals("cos") || inputll.get(i).equals("tan")) {
 				double tempIN2 = 0;
 				double tempOUT = 0;
 				System.out.println("------------------------");
 				System.out.println("CalcX: Aktuelles Objekt: " + inputll.get(i));
-				System.out.println("CalcX: eins drüber: " + inputll.get(i+1));
+				System.out.println("CalcX: eins drï¿½ber: " + inputll.get(i+1));
 				System.out.println("------------------------");
 				
 				//Checking for irrational numbers on input 2 and parsing
@@ -120,6 +121,29 @@ public class ThemisCalculator {
 					tempOUT = Math.cbrt(tempIN2);
 				}
 				
+				//SINUS
+				if (inputll.get(i).equals("sin")) {
+					tempOUT = Math.sin(tempIN2);
+					if (rbuttons.degree.isSelected()) {
+						tempOUT = helper.getDegreeFromRadial(tempOUT);
+					}
+				}
+				
+				//COSINUS
+				if (inputll.get(i).equals("cos")) {
+					tempOUT = Math.cos(tempIN2);
+					if (rbuttons.degree.isSelected()) {
+						tempOUT = helper.getDegreeFromRadial(tempOUT);
+					}
+				}
+				
+				//TANGENS
+				if (inputll.get(i).equals("tan")) {
+					tempOUT = Math.tan(tempIN2);
+					if (rbuttons.degree.isSelected()) {
+						tempOUT = helper.getDegreeFromRadial(tempOUT);
+					}
+				}
 				System.out.println("CalcX: Ergebnis: " + tempOUT);
 				
 				System.out.println("CalcX: I: "+i);
@@ -141,7 +165,7 @@ public class ThemisCalculator {
 				System.out.println("------------------------");
 				System.out.println("CalcX: eins drunter: " + inputll.get(i-1));
 				System.out.println("CalcX: Aktuelles Objekt: " + inputll.get(i));
-				System.out.println("CalcX: eins drüber: " + inputll.get(i+1));
+				System.out.println("CalcX: eins drï¿½ber: " + inputll.get(i+1));
 				System.out.println("------------------------");
 				
 				//Checking for irrational numbers on input 1 and parsing

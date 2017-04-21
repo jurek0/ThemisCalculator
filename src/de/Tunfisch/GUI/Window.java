@@ -4,18 +4,19 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import de.Tunfisch.EvalTable.EvalTable;
 import de.Tunfisch.GUI.buttons.MathButtons;
 import de.Tunfisch.GUI.buttons.NumberButtons;
 import de.Tunfisch.GUI.buttons.OperatorButtons;
 import de.Tunfisch.GUI.buttons.OtherButtons;
-import de.Tunfisch.LWFD.LWFDScreen;
+import de.Tunfisch.GUI.buttons.RadioButtons;
 import de.Tunfisch.Themis2.ThemisParenthesesExtractor;
 import de.Tunfisch.Themis2.ThemisSolver;
 import de.Tunfisch.UserInput.Keylistener;
@@ -25,29 +26,36 @@ public class Window {
 	//Version
 	public JLabel lblVersion;
 	
-	//IsDegree
-	public boolean isDegree = false;
-	
 	//Frame
 	public JFrame frame;
 	
-	// Number-Fields
+	//Number-Fields
 	public JTextField tfInput;
 	public JLabel lblInput;
 	
-	// Ergebnisfeld
+	//Evaluation-Table
+	public JTextField tfXMin, tfXMax, tfRes;
+	public JLabel lblXMin, lblXMax, lblRes;
+	public JTextArea evaluationTable;
+	public JScrollPane scrollpane;
+	
+	//Ergebnisfeld
 	public JTextField tfResult;
 	public JLabel lblResult;
 	
 	//Buttons
 	public JButton btnEnter, btnClearAll, btnANS, btnRESET, btnToggleGraph;
-		
+	
+	//Version
+	ApplicationVersion version = new ApplicationVersion();
 	//Calculator
 	ThemisSolver themis = new ThemisSolver();
 	//Extractor
 	ThemisParenthesesExtractor themisXtr = new ThemisParenthesesExtractor();
-	//Graph-stuff
-	LWFDScreen lwfd = new LWFDScreen();
+	//Radio Buttons
+	RadioButtons rbuttons = new RadioButtons();
+	//Evaluation Table
+	EvalTable evtbl = new EvalTable();
 	
 	//Buttons
 	NumberButtons numberbtns = new NumberButtons();
@@ -64,20 +72,20 @@ public class Window {
 		window.frame.setVisible(true);
 	}	
 	public Window(){
-		initialize("1.4-DE, DEBUG-EDITION");
+		initialize();
 		numberbtns.addNumberButtons(frame, tfInput, Color.white);
 		opbtns.addOperatorButtons(frame, tfInput);
 		mathbtns.addMathButtons(frame, tfInput);
 		otherbtns.addOtherButtons(frame, tfInput, tfResult);
 		klisten.CalculatorKeys(frame, tfInput, tfResult);
-		RadioButtons();
+		rbuttons.createRadioButtons(frame);
 	}
 
-	public void initialize(String versionnumber) {	
+	public void initialize() {	
 		
 		//Frame
-		frame = new JFrame("THEMISCALCULATOR " + versionnumber );
-		frame.setBounds(0, 0, 500, 700);
+		frame = new JFrame("THEMISCALCULATOR " + version.getVersionnumber() + " " + version.getLang());
+		frame.setBounds(0, 0, 800, 700);
 		frame.setResizable(false);
 		frame.setFocusable(true);
 		frame.isAutoRequestFocus();
@@ -109,9 +117,38 @@ public class Window {
 		lblResult.setForeground(Color.white);
 		
 		//Version-Label
-		lblVersion = new JLabel(versionnumber);
+		lblVersion = new JLabel(version.getVersionnumber() + " " + version.getLang());
 		lblVersion.setBounds(10, 620, 470, 40);
 		lblVersion.setForeground(Color.white);
+		
+		//Xmin and Xmax
+		tfXMin = new JTextField("-10");
+		tfXMin.setBounds(500, 100, 60, 30);
+		
+		tfXMax = new JTextField("10");
+		tfXMax.setBounds(580, 100, 60, 30);
+		
+		tfRes = new JTextField("1");
+		tfRes.setBounds(660, 100, 60, 30);
+		
+		lblXMin = new JLabel("Xmin");
+		lblXMin.setBounds(500, 70, 60, 30);
+		lblXMin.setForeground(Color.white);
+		
+		lblXMax = new JLabel("Xmax");
+		lblXMax.setBounds(580, 70, 60, 30);
+		lblXMax.setForeground(Color.white);
+		
+		lblRes = new JLabel("Aufl√∂sung");
+		lblRes.setBounds(660, 70, 60, 30);
+		lblRes.setForeground(Color.white);
+		
+		//EVALUATIONTABLE
+		evaluationTable = new JTextArea("                        Wertetabelle \n ==============================\n", 10, 2);
+		
+		//SCROLLPANE
+		scrollpane = new JScrollPane(evaluationTable);
+		scrollpane.setBounds(500, 150, 220, 375);
 		
 		//Buttons---------------------------------------------------------------------------------------------------------
 		
@@ -122,11 +159,36 @@ public class Window {
 		btnEnter.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			System.out.println("PRESSED ENTER, CALCULATING.....................");
-			themis.calculate(tfInput.getText(), isDegree);
-			tfResult.setText(themis.getResult());
-			frame.requestFocus();
-			System.out.println("PRESSED ENTER, CALCULATING DONE!");
+				
+			//try {
+				rbuttons.group.getSelection();
+				System.out.println("Window: Buttons are set to degree: " + rbuttons.degree.isSelected());
+				
+				if (tfInput.getText().contains("X") || tfInput.getText().contains("x")) {
+					//String contains x, try solving as a function
+					System.out.println("Window: PRESSED ENTER, CALCULATING.....................");
+					
+					evtbl.setEvalTableInput(tfInput.getText(), Integer.parseInt(tfXMin.getText()), Integer.parseInt(tfXMax.getText()), Double.parseDouble(tfRes.getText()));
+					evtbl.loopTBL();
+					System.out.println(evtbl.getEvalTableX());
+					System.out.println(evtbl.getEvalTableY());
+					evaluationTable.setText("                        Wertetabelle \n ==============================\n"+evtbl.getFormattedResult());
+					tfResult.setText("Output on evaluation table");
+					
+					System.out.println("Window: PRESSED ENTER, CALCULATING DONE!");
+				}	else {
+					//String does not contain any x, try solving as a normal calculation
+					System.out.println("Window: PRESSED ENTER, CALCULATING.....................");
+					themis.calculate(tfInput.getText(), rbuttons.degree.isSelected());
+					tfResult.setText(themis.getResult());
+					frame.requestFocus();
+					System.out.println("Window: PRESSED ENTER, CALCULATING DONE!");
+				}
+			//} catch (Exception e2) {
+			//  fResult.setText("ERROR");
+			//  System.out.println("Window: An error occurreds");
+			//}
+				
 			}	
 		});
 		btnEnter.setBackground(Color.orange);
@@ -139,10 +201,11 @@ public class Window {
 			public void actionPerformed(ActionEvent e) {
 			tfInput.setText("");
 			tfResult.setText("");
+			evaluationTable.setText("                        Wertetabelle \n ==============================\n");
 			}	
 		});
 		btnClearAll.setBackground(Color.red);
-		
+				
 		//BTN_RESET
 		btnRESET = new JButton("RST");
 		btnRESET.setBounds(350, 430, 65, 45);
@@ -182,36 +245,13 @@ public class Window {
 		frame.add(btnClearAll);
 		frame.add(btnANS);
 		frame.add(btnRESET);
-		
-	}
-	
-	public void RadioButtons(){
-		JLabel askForCircleType = new JLabel("Radialmaﬂ oder Gradmaﬂ");
-		
-		JRadioButton radian = new JRadioButton("Radial", true);
-		JRadioButton degree = new JRadioButton("Grad");
-		
-		radian.setBounds(100, 480, 100, 30);
-		degree.setBounds(100, 505, 100, 30);
-		
-		degree.setBackground(Color.gray);
-		radian.setBackground(Color.gray);
-		degree.setForeground(Color.white);
-		radian.setForeground(Color.white);
-		
-		
-		ButtonGroup group = new ButtonGroup();
-		group.add(degree);
-		group.add(radian);
-		
-		frame.add(askForCircleType);
-		frame.add(degree);
-		frame.add(radian);
-		
-		if (degree.isSelected() == true) {
-			isDegree = true;
-		}
-		
+		frame.add(tfXMax);
+		frame.add(tfXMin);
+		frame.add(tfRes);
+		frame.add(lblXMin);
+		frame.add(lblXMax);
+		frame.add(lblRes);
+		frame.add(scrollpane);
 	}
 	
 }
