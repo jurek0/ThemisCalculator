@@ -172,7 +172,7 @@ public class Window {
 					System.out.println(evtbl.getEvalTableX());
 					System.out.println(evtbl.getEvalTableY());
 					evaluationTable.setText("                        Wertetabelle \n ==============================\n"+evtbl.getFormattedResult());
-					tfResult.setText("Output on evaluation table");
+					tfResult.setText("AUSGABE AUF WERTETABELLE ->");
 					
 					System.out.println("Window: PRESSED ENTER, CALCULATING DONE!");
 				}	else {
@@ -184,7 +184,7 @@ public class Window {
 					System.out.println("Window: PRESSED ENTER, CALCULATING DONE!");
 				}
 			} catch (Exception e2) {
-			  tfResult.setText("ERROR");
+			  tfResult.setText("FEHLER");
 			  System.out.println("Window: An error occurreds");
 			}
 				

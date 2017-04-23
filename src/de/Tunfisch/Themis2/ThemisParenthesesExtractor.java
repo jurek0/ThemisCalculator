@@ -73,7 +73,7 @@ public class ThemisParenthesesExtractor {
 						for (int ctr = 0; ctr < insidePars.size(); ctr++) {
 						if ((	insidePars.contains("mul") || insidePars.contains("div") || insidePars.contains("add") 
 						     || insidePars.contains("sub") || insidePars.contains("pow") || insidePars.contains("prc") 
-						     || insidePars.contains("sqrt") || insidePars.contains("cbrt") || insidePars.contains("sin") 
+						     || insidePars.contains("sqrt") || insidePars.contains("cbrt") || insidePars.contains("sin") || insidePars.contains("fac") 
 						     || insidePars.contains("cos") || insidePars.contains("tan") || insidePars.contains("log") || insidePars.contains("ln"))){ 
 							System.out.println("Solver: insidePars do contain operators");
 								insidePars = themiscalc.getCalc(insidePars, angleMode);

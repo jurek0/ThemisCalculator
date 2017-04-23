@@ -1,5 +1,7 @@
 package de.Tunfisch.Themis2;
 
+
+
 import java.util.LinkedList;
 
 import de.Tunfisch.GUI.buttons.OtherButtons;
@@ -10,6 +12,9 @@ public class ThemisCalculator {
 	ThemisHelper helper = new ThemisHelper();
 	//Rad/Deg-switching
 	OtherButtons raddeg = new OtherButtons();
+	//Accurracy
+	int accuracy = 100000;
+	
 
 
 	//Method which calculates and respects point for line
@@ -69,22 +74,23 @@ public class ThemisCalculator {
 				}
 				
 				
+				
 				System.out.println("CalcX: Ergebnis: " + tempOUT);
 				
 				System.out.println("CalcX: I: "+i);
-				System.out.println(inputll.toString());
+				System.out.println("CalcX: Whole List, shortening-stage 0: " + inputll.toString());
 				inputll.set(i, Double.toString(tempOUT));
-				System.out.println(inputll.toString());
+				System.out.println("CalcX: Whole List, shortening-stage 1: " + inputll.toString());
 				inputll.remove(i+1);
-				System.out.println(inputll.toString());
+				System.out.println("CalcX: Whole List, shortening-stage 2: " + inputll.toString());
 				inputll.remove(i-1);
-				System.out.println(inputll.toString());
+				System.out.println("CalcX: Whole List, shortening-stage 3: " + inputll.toString());
 				return inputll;
 				} 
 			
 			//DOT-DUAL-PART-SUBCALCULATION (OPERATOR NUMBER)
 			if (inputll.get(i).equals("ln") || inputll.get(i).equals("log") || inputll.get(i).equals("sqrt") || inputll.get(i).equals("cbrt") ||
-				inputll.get(i).equals("sin") || inputll.get(i).equals("cos") || inputll.get(i).equals("tan")) {
+				inputll.get(i).equals("sin") || inputll.get(i).equals("cos") || inputll.get(i).equals("tan") || inputll.get(i).equals("fac")) {
 				double tempIN2 = 0;
 				double tempOUT = 0;
 				System.out.println("------------------------");
@@ -121,6 +127,14 @@ public class ThemisCalculator {
 					tempOUT = Math.cbrt(tempIN2);
 				}
 				
+				//FACULTY
+				if (inputll.get(i).equals("fac")) {
+					tempOUT = 1;
+					for (int j = 1; j <= tempIN2; j++) {
+						tempOUT = tempOUT * j;
+					}
+				}
+				
 				//SINUS
 				if (inputll.get(i).equals("sin")) {
 					tempOUT = Math.sin(tempIN2);
@@ -145,21 +159,24 @@ public class ThemisCalculator {
 						tempOUT = helper.getDegreeFromRadial(tempOUT);
 					}
 				}
+				
+				
+				
 				System.out.println("CalcX: Ergebnis: " + tempOUT);
 				
 				System.out.println("CalcX: I: "+i);
-				System.out.println(inputll.toString());
+				System.out.println("CalcX: Whole List, shortening-stage 0: " + inputll.toString());
 				inputll.set(i, Double.toString(tempOUT));
-				System.out.println(inputll.toString());
+				System.out.println("CalcX: Whole List, shortening-stage 1: " + inputll.toString());
 				inputll.remove(i+1);
-				System.out.println(inputll.toString());
+				System.out.println("CalcX: Whole List, shortening-stage 2: " + inputll.toString());
 				return inputll;
 				}
 			
 			//LINE-TRI-PART-SUBCALCULATION (NUMBER OPERATOR NUMBER)
 			if ((inputll.get(i).equals("add") || inputll.get(i).equals("sub")) && !((inputll.contains("mul") ||inputll.contains("div") || inputll.contains("pow")
 					|| inputll.contains("prc") || inputll.contains("sqrt") || inputll.contains("cbrt") || inputll.contains("ln") 
-					|| inputll.contains("log")))) {
+					|| inputll.contains("log") || inputll.contains("fac")))) {
 				double tempIN1 = 0;
 				double tempIN2 = 0;
 				double tempOUT = 0;
@@ -197,16 +214,18 @@ public class ThemisCalculator {
 					tempOUT = tempIN1 - tempIN2;
 				}
 				
+				
+				
 				System.out.println("Ergebnis: " + tempOUT);
 				
 				System.out.println("CalcX: I: "+i);
-				System.out.println(inputll.toString());
+				System.out.println("CalcX: Whole List, shortening-stage 0: " + inputll.toString());
 				inputll.set(i, Double.toString(tempOUT));
-				System.out.println(inputll.toString());
+				System.out.println("CalcX: Whole List, shortening-stage 1: " + inputll.toString());
 				inputll.remove(i+1);
-				System.out.println(inputll.toString());
+				System.out.println("CalcX: Whole List, shortening-stage 2: " + inputll.toString());
 				inputll.remove(i-1);
-				System.out.println(inputll.toString());
+				System.out.println("CalcX: Whole List, shortening-stage 3: " + inputll.toString());
 				return inputll;
 				} 
 			 }

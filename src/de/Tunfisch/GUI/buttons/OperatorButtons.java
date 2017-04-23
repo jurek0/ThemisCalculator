@@ -19,7 +19,7 @@ public class OperatorButtons {
 		frame = extFrame;
 		
 		
-		//BTN_PLUS
+				//BTN_PLUS
 				btnPlus = new JButton("+");
 				btnPlus.setBounds(250, 280, 45, 45);
 				btnPlus.addActionListener(new ActionListener(){
@@ -29,7 +29,7 @@ public class OperatorButtons {
 					}	
 				});
 				
-				//BRN_MINUS
+				//BTN_MINUS
 				btnMinus = new JButton("-");
 				btnMinus.setBounds(250, 330, 45, 45);
 				btnMinus.addActionListener(new ActionListener(){
@@ -88,7 +88,6 @@ public class OperatorButtons {
 						tfInput.setText(tfInput.getText()+"%");
 					}
 				});
-				
 				
 				//COLORING
 				btnPlus.setBackground(Color.orange);

@@ -39,6 +39,7 @@ public class ThemisSolver {
 				toSolve = toSolve.replace("%", " prc ");
 				toSolve = toSolve.replace("sqrt", " sqrt ");
 				toSolve = toSolve.replace("cbrt", " cbrt ");
+				toSolve = toSolve.replace("!", " fac ");
 				toSolve = toSolve.replace("^", " pow ");
 				toSolve = toSolve.replace("sin", " sin ");
 				toSolve = toSolve.replace("cos", " cos ");
@@ -105,7 +106,7 @@ public class ThemisSolver {
 					if (!(inputll.contains("(") || inputll.contains(")")) && 
 							   (inputll.contains("mul") || inputll.contains("div") || inputll.contains("add") 
 						     || inputll.contains("sub") || inputll.contains("pow") || inputll.contains("prc") 
-						     || inputll.contains("sqrt") || inputll.contains("cbrt") || inputll.contains("sin") 
+						     || inputll.contains("sqrt") || inputll.contains("cbrt") || inputll.contains("sin") || inputll.contains("fac") 
 						     || inputll.contains("cos") || inputll.contains("tan") || inputll.contains("log") || inputll.contains("ln"))){ 
 						System.out.println("Solver: inputll does not contain any parantheses and contains operators");
 							inputll = themisCalc.getCalc(inputll, angleMode);
@@ -129,6 +130,12 @@ public class ThemisSolver {
 	 
 	 //Returns the result as a string
 	 public String getResult(){
+		 if (finalResult.equalsIgnoreCase("E")) {
+			finalResult = Double.toString(Math.E);
+		}
+		 if (finalResult.equalsIgnoreCase("PI")) {
+			finalResult = Double.toString(Math.PI);
+		}
 		 return finalResult;
 	 }
 	 

@@ -14,7 +14,7 @@ public class ThemisHelper {
 		
 		if (toCheck.contains("mul") || toCheck.contains("div") || toCheck.contains("add") || toCheck.contains("sub") || toCheck.contains("pow")
 		 || toCheck.contains("prc") || toCheck.contains("sqrt") || toCheck.contains("cbrt") || toCheck.contains("sin") || toCheck.contains("cos")
-		 || toCheck.contains("tan") || toCheck.contains("log") || toCheck.contains("ln")) {
+		 || toCheck.contains("tan") || toCheck.contains("log") || toCheck.contains("ln") || toCheck.contains("fac")) {
 			containsOPS = true;
 		}
 		return containsOPS;
@@ -24,7 +24,7 @@ public class ThemisHelper {
 		
 		if (toCheck.equals("mul") || toCheck.equals("div") || toCheck.equals("add") || toCheck.equals("sub") || toCheck.equals("pow")
 		 || toCheck.equals("prc") || toCheck.equals("sqrt") || toCheck.equals("cbrt") || toCheck.equals("sin") || toCheck.equals("cos")
-		 || toCheck.equals("tan") || toCheck.equals("log") || toCheck.equals("ln")) {
+		 || toCheck.equals("tan") || toCheck.equals("log") || toCheck.equals("ln") || toCheck.contains("fac")) {
 			containsOPS = true;
 		}
 		return containsOPS;

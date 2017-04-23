@@ -34,11 +34,12 @@ public class VersionInfo {
 	
 		label = new JLabel();
 		label.setText("<html><body><h4>Themiscalculator der Version "+ version.getVersionnumber() +"<br>"
-				+ "Autor: " + version.getAuthor()+ "<h5><br>Bekannte Bugs: <br>"
+				+ "Autor: " + version.getAuthor()+ "<h5><br>Bekannte Bugs + Hinweise: <br>"
 				+ "-No-Click-Tastatureingabe nicht möglich, wenn zuvor ein Button gedrückt wurde.<br>"
-				+ "-Fehler bei der Verwendung von '-' als Prefix für negative Zahlen. Bitte 'neg' verwenden." 
+				+ "-Fehler bei der Verwendung von '-' als Prefix für negative Zahlen. Bitte 'neg' verwenden.<br>"
+				+ "-Statt z.B. 'n*!(x)' bitte 'n*(!(x))' schreiben." 
 				+ "</h5></body></html>");
-		label.setBounds(10, 20, 260, 280);
+		label.setBounds(10, 20, 260, 480);
 		
 		pic = new JLabel();
 		pic.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icon_new.png")));

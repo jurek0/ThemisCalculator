@@ -12,7 +12,7 @@ public class MathButtons {
 
 	JTextField tfInput;
 	JFrame frame;
-	JButton btnLN, btnLOG, btnPOW, btnX, btnSIN, btnCOS, btnTAN, btnE, btnPI, btnSQRT, btnCBRT;
+	JButton btnLN, btnLOG, btnPOW, btnX, btnSIN, btnCOS, btnTAN, btnE, btnPI, btnSQRT, btnCBRT, btnFaculty;
 	
 	public void addMathButtons(JFrame extFrame, JTextField extTfInput){
 		tfInput = extTfInput;
@@ -132,6 +132,16 @@ public class MathButtons {
 			}
 		});
 		
+		//BTN_FACULTY
+		btnFaculty = new JButton("!");
+		btnFaculty.setBounds(350, 380, 65, 45);
+		btnFaculty.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tfInput.setText(tfInput.getText()+"!(");
+			}
+		});
+		
 		//COLORING
 		btnSIN.setBackground(Color.green);
 		btnCOS.setBackground(Color.green);
@@ -144,6 +154,7 @@ public class MathButtons {
 		btnSQRT.setBackground(Color.green);
 		btnCBRT.setBackground(Color.green);
 		btnX.setBackground(Color.green);
+		btnFaculty.setBackground(Color.green);
 		
 		
 		frame.add(btnLN);
@@ -157,5 +168,6 @@ public class MathButtons {
 		frame.add(btnTAN);
 		frame.add(btnPI);
 		frame.add(btnE);
+		frame.add(btnFaculty);
 	}
 }

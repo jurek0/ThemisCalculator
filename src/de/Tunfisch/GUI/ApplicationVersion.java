@@ -2,8 +2,8 @@ package de.Tunfisch.GUI;
 
 public class ApplicationVersion {
 
-	String devVersionnumber = "1.5.1.2 [Console-output]";
-	String userVersionnumber = "RELEASE 1.0";
+	String devVersionnumber = "1.5.3 [Console-output]";
+	String userVersionnumber = "RELEASE 1.1";
 	String author = "Marco Rohn";
 	String language = "DE";
 	
