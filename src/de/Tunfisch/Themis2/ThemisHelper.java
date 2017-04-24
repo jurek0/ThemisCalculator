@@ -20,6 +20,15 @@ public class ThemisHelper {
 		return containsOPS;
 	}
 	
+	public boolean LLContainsParantheses(LinkedList<String> toCheck){
+		if (toCheck.contains(")") || toCheck.contains("(")) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
 	public boolean isOperator(String toCheck){
 		
 		if (toCheck.equals("mul") || toCheck.equals("div") || toCheck.equals("add") || toCheck.equals("sub") || toCheck.equals("pow")

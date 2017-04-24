@@ -90,7 +90,7 @@ public class ThemisSolver {
 					System.out.println("Solver: Entering check-loop for " + (j+1) + " time ===========================================");
 					
 					//Option 1: List contains parantheses
-					if (inputll.contains(")") || inputll.contains("(")) {
+					if (helper.LLContainsParantheses(inputll) == true) {
 						
 						//Return String after solving one Parantheses
 						System.out.println("Solver: Contains Parantheses");
@@ -103,7 +103,7 @@ public class ThemisSolver {
 						
 					} 
 					//Option 2: List doesnt contains parantheses (anymore)
-					if (!(inputll.contains("(") || inputll.contains(")")) && 
+					if ((helper.LLContainsParantheses(inputll)==false) && 
 							   (inputll.contains("mul") || inputll.contains("div") || inputll.contains("add") 
 						     || inputll.contains("sub") || inputll.contains("pow") || inputll.contains("prc") 
 						     || inputll.contains("sqrt") || inputll.contains("cbrt") || inputll.contains("sin") || inputll.contains("fac") 

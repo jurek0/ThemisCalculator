@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class ThemisParenthesesExtractor {
 	
-	ThemisCalculator themiscalc = new ThemisCalculator();
+	ThemisCalculator themisCalc = new ThemisCalculator();
 	
 	String result = "";
 	String tempResult = "";
@@ -76,7 +76,7 @@ public class ThemisParenthesesExtractor {
 						     || insidePars.contains("sqrt") || insidePars.contains("cbrt") || insidePars.contains("sin") || insidePars.contains("fac") 
 						     || insidePars.contains("cos") || insidePars.contains("tan") || insidePars.contains("log") || insidePars.contains("ln"))){ 
 							System.out.println("Solver: insidePars do contain operators");
-								insidePars = themiscalc.getCalc(insidePars, angleMode);
+								insidePars = themisCalc.getCalc(insidePars, angleMode);
 								ctr--;
 							} else {
 								processable.set(j, insidePars.toString().substring(1, insidePars.toString().length()-1));

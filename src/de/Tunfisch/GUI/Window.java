@@ -51,7 +51,7 @@ public class Window {
 	//Calculator
 	ThemisSolver themis = new ThemisSolver();
 	//Extractor
-	ThemisParenthesesExtractor themisXtr = new ThemisParenthesesExtractor();
+	ThemisParenthesesExtractor themisParX = new ThemisParenthesesExtractor();
 	//Radio Buttons
 	RadioButtons rbuttons = new RadioButtons();
 	//Evaluation Table
@@ -144,11 +144,11 @@ public class Window {
 		lblRes.setForeground(Color.white);
 		
 		//EVALUATIONTABLE
-		evaluationTable = new JTextArea("                        Wertetabelle \n ==============================\n", 10, 2);
+		evaluationTable = new JTextArea("   Wertetabelle \n ============================================\n", 10, 2);
 		
 		//SCROLLPANE
 		scrollpane = new JScrollPane(evaluationTable);
-		scrollpane.setBounds(500, 150, 220, 375);
+		scrollpane.setBounds(450, 150, 320, 375);
 		
 		//Buttons---------------------------------------------------------------------------------------------------------
 		
@@ -171,7 +171,7 @@ public class Window {
 					evtbl.loopTBL(otherbtns.hiddenTF.getText());
 					System.out.println(evtbl.getEvalTableX());
 					System.out.println(evtbl.getEvalTableY());
-					evaluationTable.setText("                        Wertetabelle \n ==============================\n"+evtbl.getFormattedResult());
+					evaluationTable.setText("   Wertetabelle \n ============================================\n"+evtbl.getFormattedResult());
 					tfResult.setText("AUSGABE AUF WERTETABELLE ->");
 					
 					System.out.println("Window: PRESSED ENTER, CALCULATING DONE!");
@@ -200,7 +200,7 @@ public class Window {
 			public void actionPerformed(ActionEvent e) {
 			tfInput.setText("");
 			tfResult.setText("");
-			evaluationTable.setText("                        Wertetabelle \n ==============================\n");
+			evaluationTable.setText("   Wertetabelle \n ============================================\n");
 			}	
 		});
 		btnClearAll.setBackground(Color.red);
@@ -213,7 +213,7 @@ public class Window {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					themis.clearObj();
-					themisXtr.clearObj();
+					themisParX.clearObj();
 				} catch (Exception e2) {
 					System.out.println("Error: Nothing to delete");
 				}

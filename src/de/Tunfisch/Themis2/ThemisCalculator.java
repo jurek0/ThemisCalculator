@@ -12,8 +12,6 @@ public class ThemisCalculator {
 	ThemisHelper helper = new ThemisHelper();
 	//Rad/Deg-switching
 	OtherButtons raddeg = new OtherButtons();
-	//Accurracy
-	int accuracy = 100000;
 	
 
 
